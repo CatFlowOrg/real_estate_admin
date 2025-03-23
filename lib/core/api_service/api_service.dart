@@ -1,8 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
-import '../../auth/data/models/login_user.dart';
-import '../../auth/data/models/login_user_response.dart';
+import '../../features/auth/data/models/login_user.dart';
+import '../../features/auth/data/models/login_user_response.dart';
+
 
 part 'api_service.g.dart';
 

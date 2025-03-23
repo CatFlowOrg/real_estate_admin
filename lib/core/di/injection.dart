@@ -3,7 +3,7 @@ import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:real_estate_admin/core/di/injection.config.dart';
 
-import '../../auth/data/services/auth_local_service.dart';
+import '../../features/auth/data/services/auth_local_service.dart';
 import '../api_service/api_service.dart';
 
 final getIt = GetIt.instance;
