@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:real_estate_admin/core/di/injection.dart';
+import '../../../../core/utils/auth_notifier.dart';
 import '../../data/models/login_user.dart';
 import '../bloc/auth_bloc.dart';
 
@@ -12,12 +13,15 @@ class LoginScreen extends StatefulWidget {
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
-final FocusNode _passwordFocusNode = FocusNode();
-bool _obscurePassword = false;
-final _emailText = TextEditingController();
-final _passwordText = TextEditingController();
 
 class _LoginScreenState extends State<LoginScreen> {
+
+
+  final FocusNode _passwordFocusNode = FocusNode();
+  bool _obscurePassword = false;
+  final _emailText = TextEditingController();
+  final _passwordText = TextEditingController();
+
   @override
   void dispose() {
     _passwordFocusNode.dispose();
@@ -32,17 +36,12 @@ class _LoginScreenState extends State<LoginScreen> {
       create: (context) => getIt<AuthBloc>(),
       child: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
-          if (state is AuthStateSuccess) {
-            context.go('/admin');
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(
-                  "Login successful!\nAuth Token: ${state.authToken}\nRefresh Token: ${state.refreshToken}",
-                ),
-                backgroundColor: Colors.green,
-              ),
-            );
-          } else if (state is AuthStateError) {
+          if (state is LoginStateSuccess) {
+            final authToken = state.authToken;
+            final refreshToken = state.refreshToken;
+            getIt<AuthNotifier>().login(authToken, refreshToken);
+            context.goNamed('admin_panel');
+          } else if (state is LoginStateError) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text("Login failed."),

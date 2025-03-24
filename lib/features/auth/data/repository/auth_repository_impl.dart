@@ -19,14 +19,8 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<DataState<LoginUserResponse>> login(LoginUserModel model) async {
     try {
       final response = await api.login(model);
-
       final statusCode = response.response.statusCode ?? 0;
       if (statusCode >= 200 && statusCode < 300) {
-        await localService.saveTokens(
-          authToken: response.data.authToken,
-          refreshToken: response.data.refreshToken,
-        );
-
         return DataState.success(response.data);
       } else {
         return DataState.error(
@@ -37,6 +31,15 @@ class AuthRepositoryImpl implements AuthRepository {
       return DataState.error(
         e.response?.statusMessage ?? e.message ?? 'Unknown error',
       );
+    }
+  }
+
+  @override
+  Future<DataState> logout()async {
+    try{
+      return DataState.success();
+    }catch(e){
+      return DataState.error(e.toString());
     }
   }
 }

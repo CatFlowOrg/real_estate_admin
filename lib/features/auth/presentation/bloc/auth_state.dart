@@ -11,13 +11,13 @@ class AuthStateInitial extends AuthState {
   const AuthStateInitial();
 }
 
-class AuthStateLoading extends AuthState {}
+class LoginStateLoading extends AuthState {}
 
-class AuthStateSuccess extends AuthState {
+class LoginStateSuccess extends AuthState {
   final String authToken;
   final String refreshToken;
 
-  const AuthStateSuccess({
+  const LoginStateSuccess({
     required this.authToken,
     required this.refreshToken,
   });
@@ -26,4 +26,8 @@ class AuthStateSuccess extends AuthState {
   List<Object?> get props => [authToken, refreshToken];
 }
 
-class AuthStateError extends AuthState {}
+class LoginStateError extends AuthState {}
+
+class LogoutStateSuccess extends AuthState  {}
+
+class LogoutStateError extends AuthState {}

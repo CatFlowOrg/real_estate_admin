@@ -5,6 +5,7 @@ import 'package:real_estate_admin/core/di/injection.config.dart';
 
 import '../../features/auth/data/services/auth_local_service.dart';
 import '../api_service/api_service.dart';
+import '../utils/auth_notifier.dart';
 
 final getIt = GetIt.instance;
 
@@ -27,5 +28,8 @@ abstract class AppModule {
 
   @lazySingleton
   AuthLocalService authLocalService() => AuthLocalService();
+
+  @lazySingleton
+  AuthNotifier get authNotifier => AuthNotifier();
 
 }

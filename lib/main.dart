@@ -1,31 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:real_estate_admin/core/di/injection.dart';
 import 'package:real_estate_admin/core/theme/theme.dart';
+import 'package:real_estate_admin/core/theme/util.dart';
+import 'package:real_estate_admin/core/utils/auth_notifier.dart';
 
 import 'core/navigation/navigation.dart';
-import 'core/theme/util.dart';
 
-Future<void> main()async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   configureDependencies();
-  runApp(const MyApp());
+
+  final authNotifier = getIt<AuthNotifier>();
+  await authNotifier.init();
+
+  runApp(MyApp(authNotifier: authNotifier));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final AuthNotifier authNotifier;
+  const MyApp({super.key, required this.authNotifier});
 
   @override
   Widget build(BuildContext context) {
     final brightness = View.of(context).platformDispatcher.platformBrightness;
+    final textTheme = createTextTheme(context, "Roboto", "Inter");
+    final MaterialTheme theme = MaterialTheme(textTheme);
 
-    TextTheme textTheme = createTextTheme(context, "Roboto", "Inter");
-
-    MaterialTheme theme = MaterialTheme(textTheme);
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
       theme: brightness == Brightness.light ? theme.light() : theme.dark(),
-      routerConfig: appRouter,
+      routerConfig: createRouter(authNotifier),
     );
   }
 }

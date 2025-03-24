@@ -4,4 +4,5 @@ import '../../data/models/login_user_response.dart';
 
 abstract class AuthRepository {
   Future<DataState<LoginUserResponse>> login(LoginUserModel model);
+  Future<DataState> logout();
 }
