@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:real_estate_admin/features/admin_panel/presentation/admin_screen.dart';
+import 'package:real_estate_admin/features/admin_panel/presentation/screens/admin_screen.dart';
 import 'package:real_estate_admin/features/real_estate/presentation/screens/real_estate_screen.dart';
 import 'package:real_estate_admin/features/settings/presentation/screens/setting_screen.dart';
 import 'package:real_estate_admin/features/task/presentation/screens/task_screen.dart';
