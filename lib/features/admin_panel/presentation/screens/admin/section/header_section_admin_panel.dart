@@ -4,8 +4,8 @@ class HeaderSectionAdminPanel extends StatelessWidget {
   final String imageUrl;
   final String userName;
   final String userRole;
-  final VoidCallbackAction? notificationButton;
-  final VoidCallbackAction? addWidgetButton;
+  final VoidCallback? notificationButton;
+  final VoidCallback? addWidgetButton;
 
   const HeaderSectionAdminPanel({
     super.key,
@@ -59,7 +59,7 @@ class HeaderSectionAdminPanel extends StatelessWidget {
               color: Colors.grey,
               child: InkWell(
                 splashColor: Colors.red, // Splash color
-                onTap: () {notificationButton;},
+                onTap: notificationButton,
                 child: SizedBox(width: 40, height: 40, child: Icon(Icons.notifications_outlined)),
               ),
             ),
