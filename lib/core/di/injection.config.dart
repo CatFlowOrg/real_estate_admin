@@ -13,12 +13,21 @@ import 'package:dio/dio.dart' as _i361;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 
+import '../../features/admin_panel/data/repository/agent_repository_impl.dart'
+    as _i463;
+import '../../features/admin_panel/domain/repository/agent_repository.dart'
+    as _i901;
+import '../../features/admin_panel/domain/usecases/get_agents_use_case.dart'
+    as _i315;
+import '../../features/admin_panel/presentation/bloc/agent_bloc.dart' as _i405;
 import '../../features/auth/data/repository/auth_repository_impl.dart' as _i409;
 import '../../features/auth/data/services/auth_local_service.dart' as _i790;
 import '../../features/auth/domain/repository/auth_repository.dart' as _i961;
 import '../../features/auth/domain/usecases/login_user_use_case.dart' as _i2;
+import '../../features/auth/domain/usecases/logout_user_use_case.dart' as _i506;
 import '../../features/auth/presentation/bloc/auth_bloc.dart' as _i797;
 import '../api_service/api_service.dart' as _i317;
+import '../utils/auth_notifier.dart' as _i840;
 import 'injection.dart' as _i464;
 
 extension GetItInjectableX on _i174.GetIt {
@@ -33,6 +42,7 @@ extension GetItInjectableX on _i174.GetIt {
       environmentFilter,
     );
     final appModule = _$AppModule();
+    gh.lazySingleton<_i840.AuthNotifier>(() => appModule.authNotifier);
     gh.lazySingleton<_i361.Dio>(() => appModule.dio());
     gh.lazySingleton<_i790.AuthLocalService>(
         () => appModule.authLocalService());
@@ -44,8 +54,18 @@ extension GetItInjectableX on _i174.GetIt {
         ));
     gh.factory<_i2.LoginUserUseCase>(
         () => _i2.LoginUserUseCase(gh<_i961.AuthRepository>()));
-    gh.factory<_i797.AuthBloc>(
-        () => _i797.AuthBloc(gh<_i2.LoginUserUseCase>()));
+    gh.factory<_i506.LogoutUserUseCase>(
+        () => _i506.LogoutUserUseCase(gh<_i961.AuthRepository>()));
+    gh.factory<_i797.AuthBloc>(() => _i797.AuthBloc(
+          gh<_i2.LoginUserUseCase>(),
+          gh<_i506.LogoutUserUseCase>(),
+        ));
+    gh.factory<_i901.AgentRepository>(
+        () => _i463.AgentRepositoryImpl(gh<_i317.AuthApiService>()));
+    gh.factory<_i315.GetAgentsUseCase>(
+        () => _i315.GetAgentsUseCase(gh<_i901.AgentRepository>()));
+    gh.factory<_i405.AgentBloc>(
+        () => _i405.AgentBloc(gh<_i315.GetAgentsUseCase>()));
     return this;
   }
 }
