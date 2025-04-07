@@ -20,6 +20,7 @@ class MyApp extends StatelessWidget {
   final AuthNotifier authNotifier;
   const MyApp({super.key, required this.authNotifier});
 
+
   @override
   Widget build(BuildContext context) {
     final brightness = View.of(context).platformDispatcher.platformBrightness;

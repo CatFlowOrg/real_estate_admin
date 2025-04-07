@@ -33,22 +33,9 @@ GoRouter createRouter(AuthNotifier authNotifier) {
       ),
       GoRoute(
         path: '/details',
-        builder: (context, state) {
-          final extra = state.extra;
-          if (extra is Map<String, dynamic> &&
-              extra['totalAgents'] is int &&
-              extra['agents'] != null) {
-            return AgentDetailsScreen(
-              totalAgents: extra['totalAgents'],
-              agents: List<AgentModel>.from(extra['agents']),
-            );
-          } else {
-            return const Scaffold(
-              body: Center(child: Text("Neispravan broj agenata ili podaci nedostaju")),
-            );
-          }
-        },
+        builder: (context, state) => const AgentDetailsScreen(),
       ),
+
 
 
       StatefulShellRoute.indexedStack(
