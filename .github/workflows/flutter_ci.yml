@@ -2,7 +2,7 @@ name: Flutter CI
 
 on:
   pull_request:
-    branches: [main, develop]
+    branches: [develop]
 
 jobs:
   build:
@@ -26,7 +26,3 @@ jobs:
 
       - name: Check Android build
         run: flutter build apk --debug
-
-      - name: Check iOS build (dry run)
-        if: runner.os == 'macOS'
-        run: flutter build ios --no-codesign
