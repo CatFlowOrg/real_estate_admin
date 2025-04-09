@@ -16,7 +16,7 @@ class TotalRevenueCard extends StatelessWidget {
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
-        ],
+        ], //dsadsada
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
