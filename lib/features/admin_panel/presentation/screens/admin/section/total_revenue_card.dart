@@ -18,7 +18,7 @@ class TotalRevenueCard extends StatelessWidget {
           ),
         ], //dsadsada
       ),
-      child: Column(
+      child: const Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: const [
           Text("Total Revenue", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
