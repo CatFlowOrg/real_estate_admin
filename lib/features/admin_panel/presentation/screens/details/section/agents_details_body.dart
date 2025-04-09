@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../../../data/models/agent_model.dart';
-import 'agents_details_grid_view.dart';
-import 'agents_details_list_view.dart';
+import 'package:real_estate_admin/features/admin_panel/data/models/agent_model.dart';
+import 'package:real_estate_admin/features/admin_panel/presentation/screens/details/section/agents_details_grid_view.dart';
+import 'package:real_estate_admin/features/admin_panel/presentation/screens/details/section/agents_details_list_view.dart';
 
 
 class AgentDetailsBody extends StatefulWidget {

@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../../../core/api_service/api_service.dart';
-import '../../../../../core/data_state/data_state.dart';
-import '../../domain/repository/agent_repository.dart';
-import '../models/agent_model.dart';
+import 'package:real_estate_admin/core/api_service/api_service.dart';
+import 'package:real_estate_admin/core/data_state/data_state.dart';
+import 'package:real_estate_admin/features/admin_panel/domain/repository/agent_repository.dart';
+import 'package:real_estate_admin/features/admin_panel/data/models/agent_model.dart';
 
 @Injectable(as: AgentRepository)
 class AgentRepositoryImpl implements AgentRepository {

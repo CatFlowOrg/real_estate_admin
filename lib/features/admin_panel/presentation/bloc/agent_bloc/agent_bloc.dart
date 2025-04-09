@@ -1,10 +1,10 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import '../../../data/models/agent_model.dart';
-import '../../../domain/usecase/get_agent_use_case.dart';
+import 'package:real_estate_admin/features/admin_panel/data/models/agent_model.dart';
+import 'package:real_estate_admin/features/admin_panel/domain/usecase/get_agent_use_case.dart';
 
-import 'agent_event.dart';
-import 'agent_state.dart';
+import 'package:real_estate_admin/features/admin_panel/presentation/bloc/agent_bloc/agent_event.dart';
+import 'package:real_estate_admin/features/admin_panel/presentation/bloc/agent_bloc/agent_state.dart';
 
 @Injectable()
 class AgentBloc extends Bloc<AgentEvent, AgentState> {

@@ -2,12 +2,12 @@ import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 
 
-import '../../../../core/api_service/api_service.dart';
-import '../../../../core/data_state/data_state.dart';
-import '../../domain/repository/auth_repository.dart';
-import '../models/login_user.dart';
-import '../models/login_user_response.dart';
-import '../services/auth_local_service.dart';
+import 'package:real_estate_admin/core/api_service/api_service.dart';
+import 'package:real_estate_admin/core/data_state/data_state.dart';
+import 'package:real_estate_admin/features/auth/domain/repository/auth_repository.dart';
+import 'package:real_estate_admin/features/auth/data/models/login_user.dart';
+import 'package:real_estate_admin/features/auth/data/models/login_user_response.dart';
+import 'package:real_estate_admin/features/auth/data/services/auth_local_service.dart';
 @Injectable(as: AuthRepository)
 class AuthRepositoryImpl implements AuthRepository {
   final AuthApiService api;

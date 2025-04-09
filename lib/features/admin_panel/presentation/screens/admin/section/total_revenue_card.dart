@@ -10,17 +10,17 @@ class TotalRevenueCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
-        boxShadow: [
+        boxShadow: const [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Color.fromRGBO(0, 0, 0, 0.05),
             blurRadius: 10,
-            offset: const Offset(0, 4),
+            offset: Offset(0, 4),
           ),
-        ], //dsadsada
+        ],
       ),
       child: const Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: const [
+        children: [
           Text("Total Revenue", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
           SizedBox(height: 8),
           Text("\$324,424,693", style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600)),

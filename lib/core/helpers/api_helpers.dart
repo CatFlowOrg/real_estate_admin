@@ -1,5 +1,5 @@
 import 'package:retrofit/retrofit.dart';
-import '../data_state/data_state.dart';
+import 'package:real_estate_admin/core/data_state/data_state.dart';
 
 DataState<T> handleHttpResponse<T>(HttpResponse<T> response) {
   final statusCode = response.response.statusCode ?? 0;

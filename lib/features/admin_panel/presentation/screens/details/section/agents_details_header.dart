@@ -35,7 +35,7 @@ class AgentDetailsHeader extends StatelessWidget {
               child: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                 decoration: BoxDecoration(
-                  color: Color(0xFFFFF4CC),
+                  color: const Color(0xFFFFF4CC),
                   borderRadius: BorderRadius.circular(6),
                 ),
                 child: const Text(

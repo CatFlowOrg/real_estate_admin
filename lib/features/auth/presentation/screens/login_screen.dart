@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:real_estate_admin/core/di/injection.dart';
-import '../../../../core/utils/auth_notifier.dart';
-import '../../data/models/login_user.dart';
-import '../bloc/auth_bloc.dart';
+import 'package:real_estate_admin/core/utils/auth_notifier.dart';
+import 'package:real_estate_admin/features/auth/data/models/login_user.dart';
+import 'package:real_estate_admin/features/auth/presentation/bloc/auth_bloc.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -43,7 +43,7 @@ class _LoginScreenState extends State<LoginScreen> {
             context.goNamed('admin_panel');
           } else if (state is LoginStateError) {
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
+              const SnackBar(
                 content: Text("Login failed."),
                 backgroundColor: Colors.red,
               ),

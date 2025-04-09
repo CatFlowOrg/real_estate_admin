@@ -1,9 +1,9 @@
 import 'package:injectable/injectable.dart';
 
-import '../../../../core/data_state/data_state.dart';
-import '../../../../core/usecases/use_case.dart';
-import '../../data/models/agent_model.dart';
-import '../repository/agent_repository.dart';
+import 'package:real_estate_admin/core/data_state/data_state.dart';
+import 'package:real_estate_admin/core/usecases/use_case.dart';
+import 'package:real_estate_admin/features/admin_panel/data/models/agent_model.dart';
+import 'package:real_estate_admin/features/admin_panel/domain/repository/agent_repository.dart';
 
 @Injectable()
 class GetAgentsUseCase implements UseCase<DataState<List<AgentModel>>, int> {

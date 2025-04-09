@@ -5,9 +5,9 @@ import 'package:real_estate_admin/core/di/injection.dart';
 import 'package:real_estate_admin/features/admin_panel/presentation/screens/details/section/agents_chart.dart';
 import 'package:real_estate_admin/features/admin_panel/presentation/screens/details/section/agents_details_body.dart';
 import 'package:real_estate_admin/features/admin_panel/presentation/screens/details/section/agents_details_header.dart';
-import '../../bloc/agent_bloc/agent_bloc.dart';
-import '../../bloc/agent_bloc/agent_event.dart';
-import '../../bloc/agent_bloc/agent_state.dart';
+import 'package:real_estate_admin/features/admin_panel/presentation/bloc/agent_bloc/agent_bloc.dart';
+import 'package:real_estate_admin/features/admin_panel/presentation/bloc/agent_bloc/agent_event.dart';
+import 'package:real_estate_admin/features/admin_panel/presentation/bloc/agent_bloc/agent_state.dart';
 
 class DetailsScreen extends StatelessWidget {
   const DetailsScreen({super.key});
