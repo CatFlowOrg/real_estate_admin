@@ -43,30 +43,29 @@ class AgentDetailsGridView extends StatelessWidget {
                 child: ClipOval(
                   child: agent.imageUrl != null && agent.imageUrl!.isNotEmpty
                       ? CachedNetworkImage(
-                    imageUrl: agent.imageUrl!,
-                    width: 56,
-                    height: 56,
-                    fit: BoxFit.cover,
-                    fadeInDuration: const Duration(milliseconds: 100),
-                    placeholder: (context, url) => const SizedBox(
-                      width: 24,
-                      height: 24,
-                      child: CircularProgressIndicator(strokeWidth: 2),
-                    ),
-                    errorWidget: (context, url, error) =>
-                    const Icon(Icons.person, color: Colors.white),
-                    useOldImageOnUrlChange: true,
-                    cacheKey: agent.imageUrl,
-                  )
-
+                          imageUrl: agent.imageUrl!,
+                          width: 56,
+                          height: 56,
+                          fit: BoxFit.cover,
+                          fadeInDuration: const Duration(milliseconds: 100),
+                          placeholder: (context, url) => const SizedBox(
+                            width: 24,
+                            height: 24,
+                            child: CircularProgressIndicator(strokeWidth: 2),
+                          ),
+                          errorWidget: (context, url, error) =>
+                              const Icon(Icons.person, color: Colors.white),
+                          useOldImageOnUrlChange: true,
+                          cacheKey: agent.imageUrl,
+                        )
                       : const Icon(Icons.person, color: Colors.white),
                 ),
               ),
-
               const SizedBox(height: 8),
               Text(
                 "${agent.firstName} ${agent.lastName}",
-                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                style:
+                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 4),

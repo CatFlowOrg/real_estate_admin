@@ -5,8 +5,6 @@ import 'package:real_estate_admin/features/admin_panel/presentation/screens/deta
 import 'package:material_symbols_icons/material_symbols_icons.dart';
 import 'package:material_symbols_icons/symbols.dart';
 
-
-
 class AgentDetailsBody extends StatefulWidget {
   final List<AgentModel> agents;
 
@@ -45,25 +43,25 @@ class _AgentDetailsBodyState extends State<AgentDetailsBody> {
             IconButton(
               icon: Icon(
                 Symbols.view_list,
-                fill: isListView? 1 : 0,
+                fill: isListView ? 1 : 0,
                 weight: 700,
                 grade: 0,
                 opticalSize: 24,
                 color: isListView ? Colors.black : Colors.grey,
-            ),
-            onPressed: () {
+              ),
+              onPressed: () {
                 setState(() => isListView = true);
               },
             ),
             IconButton(
-                icon: Icon(
-                  Symbols.grid_view,
-                  fill: !isListView ? 1 : 0,
-                  weight: 700,
-                  grade: 0,
-                  opticalSize: 24,
-                  color: !isListView ? Colors.black : Colors.grey,
-                ),
+              icon: Icon(
+                Symbols.grid_view,
+                fill: !isListView ? 1 : 0,
+                weight: 700,
+                grade: 0,
+                opticalSize: 24,
+                color: !isListView ? Colors.black : Colors.grey,
+              ),
               onPressed: () {
                 setState(() => isListView = false);
               },

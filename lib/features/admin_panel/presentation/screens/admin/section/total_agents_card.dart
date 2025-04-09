@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:go_router/go_router.dart';
-
 import 'package:real_estate_admin/features/admin_panel/data/models/agent_model.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
-
 
 class TotalAgentsCard extends StatelessWidget {
   final int totalAgents;
@@ -41,7 +39,10 @@ class TotalAgentsCard extends StatelessWidget {
               children: [
                 const Text(
                   "Total Agents",
-                  style: TextStyle(fontSize: 15, color: Colors.black, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      fontSize: 15,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold),
                 ),
                 IconButton(
                   onPressed: null,
@@ -72,7 +73,8 @@ class TotalAgentsCard extends StatelessWidget {
                 Expanded(
                   child: Text(
                     "$totalAgents",
-                    style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    style: const TextStyle(
+                        fontSize: 24, fontWeight: FontWeight.bold),
                   ),
                 ),
                 Column(

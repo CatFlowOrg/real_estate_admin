@@ -80,7 +80,7 @@ class HeaderSectionAdminPanel extends StatelessWidget {
         margin: const EdgeInsets.symmetric(horizontal: 4),
         decoration: const BoxDecoration(
           shape: BoxShape.circle,
-          color: Color(0xFFE0E0E0), // background color visible now
+          color: Color(0xFFEEEEEE),
         ),
         child: Icon(
           icon,

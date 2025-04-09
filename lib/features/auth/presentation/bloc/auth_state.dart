@@ -28,6 +28,6 @@ class LoginStateSuccess extends AuthState {
 
 class LoginStateError extends AuthState {}
 
-class LogoutStateSuccess extends AuthState  {}
+class LogoutStateSuccess extends AuthState {}
 
 class LogoutStateError extends AuthState {}

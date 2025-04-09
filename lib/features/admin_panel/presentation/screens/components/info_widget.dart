@@ -39,9 +39,8 @@ class InfoWidget extends StatelessWidget {
         border: Border.all(color: const Color(0xFFEFEFEF)),
         borderRadius: const BorderRadius.all(Radius.circular(20)),
       ),
-
       child: Padding(
-        padding: const EdgeInsets.only(left: 12,top: 8,right: 8),
+        padding: const EdgeInsets.only(left: 12, top: 8, right: 8),
         child: Column(
           children: [
             Row(
@@ -64,22 +63,21 @@ class InfoWidget extends StatelessWidget {
                     ),
                   ),
                   child: Material(
-                    color: Colors.transparent, 
+                    color: Colors.transparent,
                     shape: const CircleBorder(),
                     child: InkWell(
                       customBorder: const CircleBorder(),
                       onTap: buttonExpand,
                       child: const Center(
-                        child: Icon(Symbols.expand_content, size: 20, color: Color(0xFF666666)),
+                        child: Icon(Symbols.expand_content,
+                            size: 20, color: Color(0xFF666666)),
                       ),
                     ),
                   ),
                 )
-
               ],
             ),
             const SizedBox(height: 8),
-
             Align(
               alignment: Alignment.centerLeft,
               child: Text(
