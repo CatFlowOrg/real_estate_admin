@@ -34,10 +34,6 @@ dependencies:
   fl_chart: ^0.70.2
 
 
-
-
-
-
 dev_dependencies:
   build_runner: ^2.4.15
   injectable_generator: ^2.7.0

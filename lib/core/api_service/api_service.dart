@@ -1,9 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
-
-import '../../features/admin_panel/data/models/agent_model.dart';
-import '../../features/auth/data/models/login_user.dart';
-import '../../features/auth/data/models/login_user_response.dart';
+import 'package:real_estate_admin/features/admin_panel/data/models/agent_model.dart';
+import 'package:real_estate_admin/features/auth/data/models/login_user.dart';
+import 'package:real_estate_admin/features/auth/data/models/login_user_response.dart';
 
 
 part 'api_service.g.dart';

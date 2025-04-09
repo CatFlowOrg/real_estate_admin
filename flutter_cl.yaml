@@ -1,0 +1,32 @@
+name: Flutter CI
+
+on:
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  build:
+    name: Build and Analyze
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.29.2'
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Analyze code
+        run: flutter analyze
+
+      - name: Check Android build
+        run: flutter build apk --debug
+
+      - name: Check iOS build (dry run)
+        if: runner.os == 'macOS'
+        run: flutter build ios --no-codesign
