@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
+import '../../features/admin_panel/data/models/agent_model.dart';
 import '../../features/auth/data/models/login_user.dart';
 import '../../features/auth/data/models/login_user_response.dart';
 
@@ -13,4 +14,7 @@ abstract class AuthApiService {
 
   @POST('/auth/login')
   Future<HttpResponse<LoginUserResponse>> login(@Body() LoginUserModel model);
+
+  @GET('/Agents')
+  Future<HttpResponse<List<AgentModel>>> getAgents(@Query('Language') int language);
 }

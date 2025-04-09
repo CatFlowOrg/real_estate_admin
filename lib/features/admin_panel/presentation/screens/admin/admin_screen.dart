@@ -1,80 +1,87 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:reorderables/reorderables.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:real_estate_admin/core/di/injection.dart';
 import 'package:real_estate_admin/features/admin_panel/presentation/screens/admin/section/header_section_admin_panel.dart';
-import '../components/info_widget.dart';
+import 'package:real_estate_admin/features/admin_panel/presentation/screens/admin/section/total_agents_card.dart';
+import 'package:real_estate_admin/features/admin_panel/presentation/screens/admin/section/total_revenue_card.dart';
 
-class AdminScreen extends StatefulWidget {
+import '../../bloc/agent_bloc/agent_bloc.dart';
+import '../../bloc/agent_bloc/agent_event.dart';
+import '../../bloc/agent_bloc/agent_state.dart';
+
+
+class AdminScreen extends StatelessWidget {
   const AdminScreen({super.key});
 
   @override
-  State<AdminScreen> createState() => _AdminScreenState();
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => getIt<AgentBloc>()..add(const LoadAgentsEvent()),
+      child: const _AdminScreenContent(),
+    );
+  }
 }
 
-class _AdminScreenState extends State<AdminScreen> {
-
-  List<Map<String, dynamic>> data = [
-    {"id": 0, "name": "Total Revenue", "number": "\$324,424,693","size": InfoWidgetSize.big},
-    {"id": 1, "name": "Total Agents", "number": "27", "size": InfoWidgetSize.small},
-    {"id": 2, "name": "Total Projects", "number": "452", "size": InfoWidgetSize.small},
-    {"id": 3, "name": "Total Task", "number": "341", "size": InfoWidgetSize.big},
-    {"id": 4, "name": "Total", "number": "\$324,424,693", "size": InfoWidgetSize.big},
-  ];
-
-  late List<Widget> _items;
-
-  @override
-  void initState() {
-    super.initState();
-    _items = _buildItems();
-  }
-
-  List<Widget> _buildItems() {
-    return data.map((mapItem) {
-      return InfoWidget(
-        key: ValueKey(mapItem["id"]),
-        size: mapItem["size"],
-        name: mapItem["name"],
-        number: mapItem["number"],
-        buttonExpand: () {
-          context.push('/details');
-        },
-      );
-    }).toList();
-  }
+class _AdminScreenContent extends StatelessWidget {
+  const _AdminScreenContent();
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Column(
-          children: [
-            // Header
-            HeaderSectionAdminPanel(
+        floatingActionButton: FloatingActionButton(onPressed:(){context.read<AgentBloc>().add(const LoadAgentsEvent());}
+        ),
+        backgroundColor: const Color(0xFFF5F5F5),
+        body: SingleChildScrollView(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const HeaderSectionAdminPanel(
                 userName: "Djordje Tovilovic",
                 userRole: "Admin",
-                notificationButton: () => context.push("/details"),
-                addWidgetButton: () => context.push("/add_widget"),
-                imageUrl: "https://lh3.googleusercontent.com/-xRSmv0298o0/AAAAAAAAAAI/AAAAAAAAAAA/ALKGfkmVPd_c4xQR38n-dXQ4avGh-3j39g/photo.jpg?sz=46"
-            ),
+                imageUrl:
+                "https://media2.dev.to/dynamic/image/width=800%2Cheight=%2Cfit=scale-down%2Cgravity=auto%2Cformat=auto/https%3A%2F%2Fwww.gravatar.com%2Favatar%2F2c7d99fe281ecd3bcd65ab915bac6dd5%3Fs%3D250",
+              ),
+              const SizedBox(height: 24),
 
-            Expanded(
-              child: ReorderableWrap(
-                spacing: 16,
-                runSpacing: 16,
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                children: _items,
-                onReorder: (oldIndex, newIndex) {
-                  setState(() {
-                    final item = data.removeAt(oldIndex);
-                    data.insert(newIndex, item);
+              const SizedBox(
+                width: double.infinity,
+                child: TotalRevenueCard(),
+              ),
 
-                    _items = _buildItems();
-                  });
+              const SizedBox(height: 16),
+
+              BlocBuilder<AgentBloc, AgentState>(
+                builder: (context, state) {
+                  Widget leftCard;
+
+                  if (state is AgentLoading) {
+                    leftCard = const Center(child: CircularProgressIndicator());
+                  } else if (state is AgentError) {
+                    leftCard = const Text("Error");
+                  } else if (state is AgentLoaded) {
+                    leftCard = TotalAgentsCard(totalAgents: state.agents.length, agents: state.agents,);
+                  } else {
+                    leftCard = const SizedBox.shrink();
+                  }
+
+                  return Row(
+                    children: [
+                      Expanded(child: leftCard),
+                      const SizedBox(width: 12),
+                      const Expanded(
+                        child: SizedBox(
+                          height: 120,
+                          child: Placeholder(),
+                        ),
+                      ),
+                    ],
+                  );
                 },
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
