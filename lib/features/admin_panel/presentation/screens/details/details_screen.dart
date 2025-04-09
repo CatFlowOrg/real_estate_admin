@@ -29,6 +29,7 @@ class _AgentDetailsContent extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color(0xFFF5F5F5),
       appBar: AppBar(
+        forceMaterialTransparency: true,
         title: const Text('Total Agents'),
         centerTitle: true,
         backgroundColor: Colors.white,

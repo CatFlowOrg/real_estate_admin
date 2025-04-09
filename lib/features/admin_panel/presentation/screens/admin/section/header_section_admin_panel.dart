@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:material_symbols_icons/symbols.dart';
 
 class HeaderSectionAdminPanel extends StatelessWidget {
   final String imageUrl;
@@ -13,7 +14,7 @@ class HeaderSectionAdminPanel extends StatelessWidget {
     required this.userName,
     required this.userRole,
     this.addWidgetButton,
-    this.notificationButton
+    this.notificationButton,
   });
 
   @override
@@ -21,7 +22,7 @@ class HeaderSectionAdminPanel extends StatelessWidget {
     return Container(
       width: double.infinity,
       height: 70,
-      padding: const EdgeInsets.symmetric(horizontal: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 0),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -46,36 +47,48 @@ class HeaderSectionAdminPanel extends StatelessWidget {
                 userRole,
                 style: const TextStyle(
                   fontSize: 14,
-                  color: Colors.black,
+                  color: Colors.black54,
                 ),
               ),
             ],
           ),
-
           const Spacer(),
-
-          ClipOval(
-            child: Material(
-              color: const Color(0xFFE8E8E8),
-              child: InkWell(
-                splashColor: Colors.grey, // Splash color
-                onTap: notificationButton,
-                child: const SizedBox(width: 40, height: 40, child: Icon(Icons.notifications_outlined)),
-              ),
-            ),
+          _buildIconButton(
+            icon: Symbols.notifications,
+            onPressed: notificationButton,
           ),
-          const SizedBox(width: 7),
-          ClipOval(
-            child: Material(
-              color: const Color(0xFFE8E8E8),
-              child: InkWell(
-                splashColor: Colors.grey, // Splash color
-                onTap: addWidgetButton,
-                child: const SizedBox(width: 40, height: 40, child: Icon(Icons.add)),
-              ),
-            ),
+          _buildIconButton(
+            icon: Symbols.add,
+            onPressed: addWidgetButton,
+            weight: 700,
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildIconButton({
+    required IconData icon,
+    VoidCallback? onPressed,
+    double weight = 400,
+  }) {
+    return GestureDetector(
+      onTap: onPressed,
+      child: Container(
+        width: 40,
+        height: 40,
+        margin: const EdgeInsets.symmetric(horizontal: 4),
+        decoration: const BoxDecoration(
+          shape: BoxShape.circle,
+          color: Color(0xFFE0E0E0), // background color visible now
+        ),
+        child: Icon(
+          icon,
+          size: 20,
+          weight: weight,
+          fill: 0,
+          color: Colors.black,
+        ),
       ),
     );
   }
