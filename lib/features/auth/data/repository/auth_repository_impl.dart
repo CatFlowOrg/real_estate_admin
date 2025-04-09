@@ -1,13 +1,13 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 
-
 import 'package:real_estate_admin/core/api_service/api_service.dart';
 import 'package:real_estate_admin/core/data_state/data_state.dart';
 import 'package:real_estate_admin/features/auth/domain/repository/auth_repository.dart';
 import 'package:real_estate_admin/features/auth/data/models/login_user.dart';
 import 'package:real_estate_admin/features/auth/data/models/login_user_response.dart';
 import 'package:real_estate_admin/features/auth/data/services/auth_local_service.dart';
+
 @Injectable(as: AuthRepository)
 class AuthRepositoryImpl implements AuthRepository {
   final AuthApiService api;
@@ -35,10 +35,10 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<DataState> logout()async {
-    try{
+  Future<DataState> logout() async {
+    try {
       return DataState.success();
-    }catch(e){
+    } catch (e) {
       return DataState.error(e.toString());
     }
   }

@@ -13,7 +13,8 @@ class AgentDetailsListView extends StatelessWidget {
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       itemCount: agents.length,
-      separatorBuilder: (_, __) => const Divider(height: 1, color: Colors.black12),
+      separatorBuilder: (_, __) =>
+          const Divider(height: 1, color: Colors.black12),
       itemBuilder: (context, index) {
         final agent = agents[index];
         return ListTile(
@@ -23,22 +24,21 @@ class AgentDetailsListView extends StatelessWidget {
             child: ClipOval(
               child: agent.imageUrl != null && agent.imageUrl!.isNotEmpty
                   ? CachedNetworkImage(
-                imageUrl: agent.imageUrl!,
-                width: 56,
-                height: 56,
-                fit: BoxFit.cover,
-                fadeInDuration: const Duration(milliseconds: 100),
-                placeholder: (context, url) => const SizedBox(
-                  width: 24,
-                  height: 24,
-                  child: CircularProgressIndicator(strokeWidth: 2),
-                ),
-                errorWidget: (context, url, error) =>
-                const Icon(Icons.person, color: Colors.white),
-                useOldImageOnUrlChange: true,
-                cacheKey: agent.imageUrl,
-              )
-
+                      imageUrl: agent.imageUrl!,
+                      width: 56,
+                      height: 56,
+                      fit: BoxFit.cover,
+                      fadeInDuration: const Duration(milliseconds: 100),
+                      placeholder: (context, url) => const SizedBox(
+                        width: 24,
+                        height: 24,
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      ),
+                      errorWidget: (context, url, error) =>
+                          const Icon(Icons.person, color: Colors.white),
+                      useOldImageOnUrlChange: true,
+                      cacheKey: agent.imageUrl,
+                    )
                   : const Icon(Icons.person, color: Colors.white),
             ),
           ),

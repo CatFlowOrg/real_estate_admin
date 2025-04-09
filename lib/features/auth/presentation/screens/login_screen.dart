@@ -13,10 +13,7 @@ class LoginScreen extends StatefulWidget {
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
-
 class _LoginScreenState extends State<LoginScreen> {
-
-
   final FocusNode _passwordFocusNode = FocusNode();
   bool _obscurePassword = false;
   final _emailText = TextEditingController();
@@ -61,12 +58,14 @@ class _LoginScreenState extends State<LoginScreen> {
                     const SizedBox(height: 60),
                     const Text(
                       "Sign In",
-                      style: TextStyle(fontSize: 32, fontWeight: FontWeight.w400),
+                      style:
+                          TextStyle(fontSize: 32, fontWeight: FontWeight.w400),
                     ),
                     const Text(
                       "Please enter your email address \nand create password",
                       textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
+                      style:
+                          TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
                     ),
                     const SizedBox(height: 40),
                     TextField(
@@ -122,7 +121,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                     const Spacer(),
-
                     Builder(
                       builder: (context) {
                         return SizedBox(

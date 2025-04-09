@@ -6,7 +6,6 @@ import 'package:real_estate_admin/features/auth/domain/usecases/logout_user_use_
 import 'package:real_estate_admin/features/auth/data/models/login_user.dart';
 import 'package:real_estate_admin/features/auth/domain/usecases/login_user_use_case.dart';
 
-
 part 'auth_event.dart';
 
 part 'auth_state.dart';
@@ -16,7 +15,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final LoginUserUseCase _loginUserUseCase;
   final LogoutUserUseCase _logoutUserUseCase;
 
-  AuthBloc(this._loginUserUseCase, this._logoutUserUseCase) : super(const AuthStateInitial()) {
+  AuthBloc(this._loginUserUseCase, this._logoutUserUseCase)
+      : super(const AuthStateInitial()) {
     on<LoginUser>(_onLoginUser);
     on<LogoutUser>(_onLogoutUser);
   }
@@ -38,11 +38,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   Future<void> _onLogoutUser(LogoutUser event, Emitter<AuthState> emit) async {
     final dataState = await _logoutUserUseCase();
-    if(dataState.isSuccess){
+    if (dataState.isSuccess) {
       emit(LogoutStateSuccess());
-    }else{
+    } else {
       emit(LogoutStateError());
     }
   }
-
 }

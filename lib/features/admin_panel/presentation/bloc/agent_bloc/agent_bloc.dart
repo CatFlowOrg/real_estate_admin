@@ -15,8 +15,10 @@ class AgentBloc extends Bloc<AgentEvent, AgentState> {
     on<LoadAgentsEvent>(_onLoadAgents);
   }
 
-  Future<void> _onLoadAgents(LoadAgentsEvent event,
-      Emitter<AgentState> emit,) async {
+  Future<void> _onLoadAgents(
+    LoadAgentsEvent event,
+    Emitter<AgentState> emit,
+  ) async {
     if (_cachedAgents != null) {
       emit(AgentLoaded(_cachedAgents!));
       return;
@@ -24,8 +26,7 @@ class AgentBloc extends Bloc<AgentEvent, AgentState> {
 
     emit(AgentLoading());
 
-    final dataState =
-    await getAgentsUseCase(params: event.language);
+    final dataState = await getAgentsUseCase(params: event.language);
 
     if (dataState.isSuccess && dataState.data != null) {
       _cachedAgents = dataState.data!;

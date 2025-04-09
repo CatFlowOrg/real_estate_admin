@@ -21,9 +21,11 @@ class TotalRevenueCard extends StatelessWidget {
       child: const Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("Total Revenue", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+          Text("Total Revenue",
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
           SizedBox(height: 8),
-          Text("\$324,424,693", style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600)),
+          Text("\$324,424,693",
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600)),
           SizedBox(height: 4),
           Text("↑ 4.9%", style: TextStyle(color: Colors.green)),
         ],

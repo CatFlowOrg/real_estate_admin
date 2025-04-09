@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:real_estate_admin/core/di/injection.dart';
 import 'package:real_estate_admin/features/admin_panel/presentation/screens/admin/section/header_section_admin_panel.dart';
@@ -8,7 +9,6 @@ import 'package:real_estate_admin/features/admin_panel/presentation/screens/admi
 import 'package:real_estate_admin/features/admin_panel/presentation/bloc/agent_bloc/agent_bloc.dart';
 import 'package:real_estate_admin/features/admin_panel/presentation/bloc/agent_bloc/agent_event.dart';
 import 'package:real_estate_admin/features/admin_panel/presentation/bloc/agent_bloc/agent_state.dart';
-
 
 class AdminScreen extends StatelessWidget {
   const AdminScreen({super.key});
@@ -27,9 +27,14 @@ class _AdminScreenContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      statusBarColor: Colors.white,
+      statusBarIconBrightness: Brightness.dark,
+      statusBarBrightness: Brightness.light,
+    ));
     return SafeArea(
       child: Scaffold(
-        backgroundColor: const Color(0xFFF5F5F5),
+        backgroundColor: Colors.white,
         body: SingleChildScrollView(
           padding: const EdgeInsets.all(16),
           child: Column(
@@ -39,17 +44,14 @@ class _AdminScreenContent extends StatelessWidget {
                 userName: "Djordje Tovilovic",
                 userRole: "Admin",
                 imageUrl:
-                "https://media2.dev.to/dynamic/image/width=800%2Cheight=%2Cfit=scale-down%2Cgravity=auto%2Cformat=auto/https%3A%2F%2Fwww.gravatar.com%2Favatar%2F2c7d99fe281ecd3bcd65ab915bac6dd5%3Fs%3D250",
+                    "https://media2.dev.to/dynamic/image/width=800%2Cheight=%2Cfit=scale-down%2Cgravity=auto%2Cformat=auto/https%3A%2F%2Fwww.gravatar.com%2Favatar%2F2c7d99fe281ecd3bcd65ab915bac6dd5%3Fs%3D250",
               ),
               const SizedBox(height: 24),
-
               const SizedBox(
                 width: double.infinity,
                 child: TotalRevenueCard(),
               ),
-
               const SizedBox(height: 16),
-
               BlocBuilder<AgentBloc, AgentState>(
                 builder: (context, state) {
                   Widget leftCard;
@@ -59,7 +61,10 @@ class _AdminScreenContent extends StatelessWidget {
                   } else if (state is AgentError) {
                     leftCard = const Text("Error");
                   } else if (state is AgentLoaded) {
-                    leftCard = TotalAgentsCard(totalAgents: state.agents.length, agents: state.agents,);
+                    leftCard = TotalAgentsCard(
+                      totalAgents: state.agents.length,
+                      agents: state.agents,
+                    );
                   } else {
                     leftCard = const SizedBox.shrink();
                   }
