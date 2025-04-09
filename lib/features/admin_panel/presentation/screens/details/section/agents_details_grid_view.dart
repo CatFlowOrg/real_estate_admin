@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import '../../../../data/models/agent_model.dart';
+import 'package:real_estate_admin/features/admin_panel/data/models/agent_model.dart';
 
 class AgentDetailsGridView extends StatelessWidget {
   final List<AgentModel> agents;
@@ -26,7 +26,7 @@ class AgentDetailsGridView extends StatelessWidget {
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(16),
-            boxShadow: [
+            boxShadow: const [
               BoxShadow(
                 color: Colors.black12,
                 blurRadius: 8,
@@ -47,7 +47,7 @@ class AgentDetailsGridView extends StatelessWidget {
                     width: 56,
                     height: 56,
                     fit: BoxFit.cover,
-                    fadeInDuration: Duration(milliseconds: 100),
+                    fadeInDuration: const Duration(milliseconds: 100),
                     placeholder: (context, url) => const SizedBox(
                       width: 24,
                       height: 24,

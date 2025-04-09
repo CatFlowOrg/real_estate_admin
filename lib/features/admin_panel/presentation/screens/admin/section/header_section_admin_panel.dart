@@ -56,22 +56,22 @@ class HeaderSectionAdminPanel extends StatelessWidget {
 
           ClipOval(
             child: Material(
-              color: Color(0xFFE8E8E8),
+              color: const Color(0xFFE8E8E8),
               child: InkWell(
                 splashColor: Colors.grey, // Splash color
                 onTap: notificationButton,
-                child: SizedBox(width: 40, height: 40, child: Icon(Icons.notifications_outlined)),
+                child: const SizedBox(width: 40, height: 40, child: Icon(Icons.notifications_outlined)),
               ),
             ),
           ),
-          SizedBox(width: 7),
+          const SizedBox(width: 7),
           ClipOval(
             child: Material(
-              color: Color(0xFFE8E8E8),
+              color: const Color(0xFFE8E8E8),
               child: InkWell(
                 splashColor: Colors.grey, // Splash color
                 onTap: addWidgetButton,
-                child: SizedBox(width: 40, height: 40, child: Icon(Icons.add)),
+                child: const SizedBox(width: 40, height: 40, child: Icon(Icons.add)),
               ),
             ),
           ),

@@ -5,7 +5,7 @@ import 'package:real_estate_admin/core/theme/theme.dart';
 import 'package:real_estate_admin/core/theme/util.dart';
 import 'package:real_estate_admin/core/utils/auth_notifier.dart';
 
-import 'core/navigation/navigation.dart';
+import 'package:real_estate_admin/core/navigation/navigation.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

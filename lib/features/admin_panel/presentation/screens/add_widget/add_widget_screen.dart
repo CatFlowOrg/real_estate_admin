@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:real_estate_admin/core/theme/app_colors.dart';
-import '../../../../../core/ui/app_text_styles.dart';
+import 'package:real_estate_admin/core/ui/app_text_styles.dart';
 
 class AddWidgetScreen extends StatelessWidget {
   const AddWidgetScreen({super.key});
@@ -12,12 +12,12 @@ class AddWidgetScreen extends StatelessWidget {
       backgroundColor: AppColors.backgroundLight,
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SizedBox(height: 30,width: 30,),
+                const SizedBox(height: 30,width: 30,),
                 Text("Add Widget", style: AppTextStyles.headerText(context)),
                 ClipOval(
                   child: Material(
@@ -36,7 +36,7 @@ class AddWidgetScreen extends StatelessWidget {
               ],
             ),
 
-            TextField()
+            const TextField()
           ]),
         ),
       ),

@@ -3,7 +3,7 @@ import 'package:real_estate_admin/core/theme/app_colors.dart';
 
 class AppTextStyles {
   static TextStyle headerText(BuildContext context) {
-    return TextStyle(
+    return const TextStyle(
       fontSize: 18,
       fontFamily: "Inter",
       fontWeight: FontWeight.w500,
@@ -13,7 +13,7 @@ class AppTextStyles {
   }
 
   static TextStyle titleText(BuildContext context) {
-    return TextStyle(
+    return const TextStyle(
       fontSize: 18,
       fontFamily: "Inter",
       fontWeight: FontWeight.w500,
@@ -22,7 +22,7 @@ class AppTextStyles {
   }
 
   static TextStyle widgetText(BuildContext context) {
-    return TextStyle(
+    return const TextStyle(
       fontSize: 32,
       fontFamily: "Inter",
       fontWeight: FontWeight.w600,
@@ -31,7 +31,7 @@ class AppTextStyles {
   }
 
   static TextStyle subtitleText(BuildContext context) {
-    return TextStyle(
+    return const TextStyle(
       fontSize: 18,
       fontFamily: "Inter",
       fontWeight: FontWeight.w500,
@@ -41,7 +41,7 @@ class AppTextStyles {
   }
 
   static TextStyle bodyText(BuildContext context) {
-    return TextStyle(
+    return const TextStyle(
       fontSize: 18,
       fontFamily: "Inter",
       fontWeight: FontWeight.w500,
@@ -51,7 +51,7 @@ class AppTextStyles {
   }
 
   static TextStyle smallText(BuildContext context) {
-    return TextStyle(
+    return const TextStyle(
       fontSize: 18,
       fontFamily: "Inter",
       fontWeight: FontWeight.w500,

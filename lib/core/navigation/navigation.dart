@@ -6,9 +6,9 @@ import 'package:real_estate_admin/features/real_estate/presentation/screens/real
 import 'package:real_estate_admin/features/settings/presentation/screens/setting_screen.dart';
 import 'package:real_estate_admin/features/task/presentation/screens/task_screen.dart';
 
-import '../../features/auth/presentation/screens/login_screen.dart';
-import '../../main.dart';
-import '../utils/auth_notifier.dart';
+import 'package:real_estate_admin/features/auth/presentation/screens/login_screen.dart';
+import 'package:real_estate_admin/main.dart';
+import 'package:real_estate_admin/core/utils/auth_notifier.dart';
 GoRouter createRouter(AuthNotifier authNotifier) {
   return GoRouter(
     refreshListenable: authNotifier,

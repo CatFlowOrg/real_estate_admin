@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../data/models/agent_model.dart';
+import 'package:real_estate_admin/features/admin_panel/data/models/agent_model.dart';
 
 class TotalAgentsCard extends StatelessWidget {
   final int totalAgents;
@@ -70,16 +70,16 @@ class TotalAgentsCard extends StatelessWidget {
                               FlSpot(2, 27),
                             ],
                             isCurved: true,
-                            dotData: FlDotData(show: false),
+                            dotData: const FlDotData(show: false),
                             belowBarData: BarAreaData(show: false),
                             color: Colors.green,
                             barWidth: 2,
                           ),
                         ],
-                        titlesData: FlTitlesData(show: false),
-                        gridData: FlGridData(show: false),
+                        titlesData: const FlTitlesData(show: false),
+                        gridData: const FlGridData(show: false),
                         borderData: FlBorderData(show: false),
-                        lineTouchData: LineTouchData(enabled: false),
+                        lineTouchData: const LineTouchData(enabled: false),
                         minX: 0,
                         maxX: 2,
                         minY: 20,

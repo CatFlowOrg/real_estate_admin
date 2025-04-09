@@ -5,9 +5,9 @@ import 'package:real_estate_admin/features/admin_panel/presentation/screens/admi
 import 'package:real_estate_admin/features/admin_panel/presentation/screens/admin/section/total_agents_card.dart';
 import 'package:real_estate_admin/features/admin_panel/presentation/screens/admin/section/total_revenue_card.dart';
 
-import '../../bloc/agent_bloc/agent_bloc.dart';
-import '../../bloc/agent_bloc/agent_event.dart';
-import '../../bloc/agent_bloc/agent_state.dart';
+import 'package:real_estate_admin/features/admin_panel/presentation/bloc/agent_bloc/agent_bloc.dart';
+import 'package:real_estate_admin/features/admin_panel/presentation/bloc/agent_bloc/agent_event.dart';
+import 'package:real_estate_admin/features/admin_panel/presentation/bloc/agent_bloc/agent_state.dart';
 
 
 class AdminScreen extends StatelessWidget {
@@ -29,8 +29,6 @@ class _AdminScreenContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        floatingActionButton: FloatingActionButton(onPressed:(){context.read<AgentBloc>().add(const LoadAgentsEvent());}
-        ),
         backgroundColor: const Color(0xFFF5F5F5),
         body: SingleChildScrollView(
           padding: const EdgeInsets.all(16),

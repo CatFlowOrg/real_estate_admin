@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:real_estate_admin/core/di/injection.dart';
 import 'package:real_estate_admin/core/ui/app_text_styles.dart';
 import 'package:real_estate_admin/features/auth/presentation/bloc/auth_bloc.dart';
 
-import '../../../../core/utils/auth_notifier.dart';
+import 'package:real_estate_admin/core/utils/auth_notifier.dart';
 
 class SettingScreen extends StatelessWidget {
   const SettingScreen({super.key});
@@ -35,7 +34,7 @@ class SettingScreen extends StatelessWidget {
                 children: [
                   Container(width: double.infinity,
                   height: 200,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.all(Radius.circular(20))
                   ),),
@@ -51,7 +50,7 @@ class SettingScreen extends StatelessWidget {
                         ),
                       ),
                       onPressed: () {
-                        context.read<AuthBloc>().add(LogoutUser());
+                        context.read<AuthBloc>().add(const LogoutUser());
                       },
                       child:  Text(
                         "Logout",

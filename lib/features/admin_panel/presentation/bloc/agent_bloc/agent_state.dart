@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import '../../../data/models/agent_model.dart';
+import 'package:real_estate_admin/features/admin_panel/data/models/agent_model.dart';
 
 abstract class AgentState extends Equatable {
   const AgentState();

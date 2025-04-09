@@ -36,7 +36,7 @@ class InfoWidget extends StatelessWidget {
       width: widgetWidth,
       height: 130,
       decoration: BoxDecoration(
-        border: Border.all(color: Color(0xFFEFEFEF)),
+        border: Border.all(color: const Color(0xFFEFEFEF)),
         borderRadius: const BorderRadius.all(Radius.circular(20)),
       ),
 
@@ -59,7 +59,7 @@ class InfoWidget extends StatelessWidget {
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     border: Border.all(
-                      color: Color(0xFFE8E8E8),
+                      color: const Color(0xFFE8E8E8),
                       width: 1,
                     ),
                   ),

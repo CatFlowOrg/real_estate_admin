@@ -3,8 +3,8 @@ import 'package:injectable/injectable.dart';
 import 'package:bloc/bloc.dart';
 import 'package:real_estate_admin/features/auth/domain/usecases/logout_user_use_case.dart';
 
-import '../../data/models/login_user.dart';
-import '../../domain/usecases/login_user_use_case.dart';
+import 'package:real_estate_admin/features/auth/data/models/login_user.dart';
+import 'package:real_estate_admin/features/auth/domain/usecases/login_user_use_case.dart';
 
 
 part 'auth_event.dart';
