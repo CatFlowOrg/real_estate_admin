@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:real_estate_admin/core/di/injection.dart';
 import 'package:real_estate_admin/features/admin_panel/presentation/screens/admin/section/header_section_admin_panel.dart';
@@ -21,16 +22,33 @@ class AdminScreen extends StatelessWidget {
   }
 }
 
-class _AdminScreenContent extends StatelessWidget {
+class _AdminScreenContent extends StatefulWidget {
   const _AdminScreenContent();
 
   @override
-  Widget build(BuildContext context) {
+  State<_AdminScreenContent> createState() => _AdminScreenContentState();
+}
 
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: SafeArea(
-        child: SingleChildScrollView(
+class _AdminScreenContentState extends State<_AdminScreenContent> {
+  bool isAgentCardExpanded = false;
+
+  void toggleAgentCardExpansion() {
+    setState(() {
+      isAgentCardExpanded = !isAgentCardExpanded;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      statusBarColor: Colors.white,
+      statusBarIconBrightness: Brightness.dark,
+      statusBarBrightness: Brightness.light,
+    ));
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        body: SingleChildScrollView(
           padding: const EdgeInsets.all(16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -49,33 +67,49 @@ class _AdminScreenContent extends StatelessWidget {
               const SizedBox(height: 16),
               BlocBuilder<AgentBloc, AgentState>(
                 builder: (context, state) {
-                  Widget leftCard;
-            
+                  Widget agentCard;
+
                   if (state is AgentLoading) {
-                    leftCard = const Center(child: CircularProgressIndicator());
+                    agentCard = const Center(child: CircularProgressIndicator());
                   } else if (state is AgentError) {
-                    leftCard = const Text("Error");
+                    agentCard = const Text("Error");
                   } else if (state is AgentLoaded) {
-                    leftCard = TotalAgentsCard(
+                    agentCard = TotalAgentsCard(
                       totalAgents: state.agents.length,
                       agents: state.agents,
+                      isExpanded: isAgentCardExpanded,
+                      onToggleExpanded: toggleAgentCardExpansion,
                     );
                   } else {
-                    leftCard = const SizedBox.shrink();
+                    agentCard = const SizedBox.shrink();
                   }
-            
-                  return Row(
-                    children: [
-                      Expanded(child: leftCard),
-                      const SizedBox(width: 12),
-                      const Expanded(
-                        child: SizedBox(
-                          height: 120,
-                          child: Placeholder(),
-                        ),
+
+                  if (isAgentCardExpanded) {
+                    return Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: agentCard,
+                    );
+                  } else {
+                    return SingleChildScrollView(
+                      padding: const EdgeInsets.all(16),
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              Expanded(child: agentCard),
+                              const SizedBox(width: 12),
+                              const Expanded(
+                                child: SizedBox(
+                                  height: 120,
+                                  child: Placeholder(),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
-                    ],
-                  );
+                    );
+                  }
                 },
               ),
             ],

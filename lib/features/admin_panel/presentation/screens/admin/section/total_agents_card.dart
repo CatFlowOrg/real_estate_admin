@@ -4,21 +4,37 @@ import 'package:go_router/go_router.dart';
 import 'package:real_estate_admin/features/admin_panel/data/models/agent_model.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
 
-class TotalAgentsCard extends StatelessWidget {
+class TotalAgentsCard extends StatefulWidget {
   final int totalAgents;
   final List<AgentModel> agents;
+  final bool isExpanded;
+  final VoidCallback onToggleExpanded;
 
   const TotalAgentsCard({
     super.key,
     required this.totalAgents,
     required this.agents,
+    required this.isExpanded,
+    required this.onToggleExpanded,
   });
+
+  @override
+  State<TotalAgentsCard> createState() => _TotalAgentsCardState();
+}
+
+class _TotalAgentsCardState extends State<TotalAgentsCard> {
+  void _navigateToDetails() {
+    context.push('/details');
+  }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => context.push('/details'),
-      child: Container(
+      onTap: _navigateToDetails,
+      behavior: HitTestBehavior.translucent,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 250),
+        width: double.infinity,
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         decoration: BoxDecoration(
           color: Colors.white,
@@ -40,28 +56,25 @@ class TotalAgentsCard extends StatelessWidget {
                 const Text(
                   "Total Agents",
                   style: TextStyle(
-                      fontSize: 15,
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold),
-                ),
-                IconButton(
-                  onPressed: null,
-                  style: IconButton.styleFrom(
-                    padding: const EdgeInsets.all(8),
-                    shape: const CircleBorder(),
-                    backgroundColor: Colors.white,
-                    side: const BorderSide(
-                      color: Color(0xFFE0E0E0),
-                      width: 1,
-                    ),
-                    shadowColor: Colors.transparent,
+                    fontSize: 15,
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
                   ),
-                  icon: const Icon(
-                    Symbols.open_in_full,
-                    size: 18,
-                    weight: 300,
-                    fill: 0,
-                    color: Colors.black45,
+                ),
+                InkWell(
+                  onTap: widget.onToggleExpanded,
+                  borderRadius: BorderRadius.circular(20),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Icon(
+                      widget.isExpanded
+                          ? Symbols.close_fullscreen
+                          : Symbols.open_in_full,
+                      size: 20,
+                      weight: 300,
+                      fill: 0,
+                      color: Colors.black45,
+                    ),
                   ),
                 ),
               ],
@@ -72,9 +85,11 @@ class TotalAgentsCard extends StatelessWidget {
               children: [
                 Expanded(
                   child: Text(
-                    "$totalAgents",
+                    "${widget.totalAgents}",
                     style: const TextStyle(
-                        fontSize: 24, fontWeight: FontWeight.bold),
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
                 Column(
@@ -119,6 +134,9 @@ class TotalAgentsCard extends StatelessWidget {
                 ),
               ],
             ),
+            if (widget.isExpanded) ...[
+              const SizedBox(height: 12),
+            ]
           ],
         ),
       ),
