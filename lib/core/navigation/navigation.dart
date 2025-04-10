@@ -2,7 +2,8 @@ import 'package:go_router/go_router.dart';
 import 'package:real_estate_admin/features/admin_panel/presentation/screens/add_widget/add_widget_screen.dart';
 import 'package:real_estate_admin/features/admin_panel/presentation/screens/admin/admin_screen.dart';
 import 'package:real_estate_admin/features/admin_panel/presentation/screens/details/details_screen.dart';
-import 'package:real_estate_admin/features/real_estate/presentation/screens/real_estate_screen.dart';
+import 'package:real_estate_admin/features/real_estate/presentation/screens/real_estate/real_estate_screen.dart';
+import 'package:real_estate_admin/features/real_estate/presentation/screens/real_estate_details/real_estate_details.dart';
 import 'package:real_estate_admin/features/settings/presentation/screens/setting_screen.dart';
 import 'package:real_estate_admin/features/task/presentation/screens/task_screen.dart';
 
@@ -35,6 +36,15 @@ GoRouter createRouter(AuthNotifier authNotifier) {
         path: '/details',
         builder: (context, state) => const DetailsScreen(),
       ),
+      GoRoute(
+        path: '/realEstateDetails/:id',
+        name: 'realEstateDetails',
+        builder: (context, state) {
+          final id = int.parse(state.pathParameters['id']!);
+          return RealEstateDetails(id: id);
+        },
+      ),
+
       GoRoute(
         path: '/add_widget',
         builder: (context, state) => const AddWidgetScreen(),
