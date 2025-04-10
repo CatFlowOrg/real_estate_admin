@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:real_estate_admin/core/di/injection.dart';
 import 'package:real_estate_admin/core/theme/theme.dart';
@@ -6,10 +7,6 @@ import 'package:real_estate_admin/core/theme/util.dart';
 import 'package:real_estate_admin/core/utils/auth_notifier.dart';
 
 import 'package:real_estate_admin/core/navigation/navigation.dart';
-import 'package:real_estate_admin/features/admin_panel/presentation/screens/admin/admin_screen.dart';
-import 'package:real_estate_admin/features/real_estate/presentation/screens/real_estate/real_estate_screen.dart';
-import 'package:real_estate_admin/features/settings/presentation/screens/setting_screen.dart';
-import 'package:real_estate_admin/features/task/presentation/screens/task_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,6 +20,7 @@ Future<void> main() async {
 
 class MyApp extends StatelessWidget {
   final AuthNotifier authNotifier;
+
   const MyApp({super.key, required this.authNotifier});
 
   @override
@@ -38,41 +36,47 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
 class MainScreen extends StatefulWidget {
   final Widget child;
 
-  const MainScreen({super.key, required this.child});
+  const MainScreen({
+    super.key,
+    required this.child,
+  });
 
   @override
   State<MainScreen> createState() => _MainScreenState();
 }
 
 class _MainScreenState extends State<MainScreen> {
-  final List<String> _routes = ['/admin_panel', '/real_estate', '/task', '/setting'];
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _setWhiteStatusBar();
+  }
 
-  int get _currentIndex {
-    final location = GoRouterState.of(context).uri.toString();
-    final index = _routes.indexWhere((route) => location.startsWith(route));
-    return index == -1 ? 0 : index;
+  void _setWhiteStatusBar() {
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      statusBarColor: Colors.white,
+      statusBarIconBrightness: Brightness.dark,
+      statusBarBrightness: Brightness.light,
+    ));
   }
 
   @override
   Widget build(BuildContext context) {
+    final routes = ['/admin_panel', '/real_estate', '/task', '/setting'];
+
+    final selectedIndex = routes.indexWhere(
+      (route) => GoRouterState.of(context).uri.toString().startsWith(route),
+    );
+
     return Scaffold(
-      body: IndexedStack(
-        index: _currentIndex,
-        children: const [
-          AdminScreen(),
-          RealEstateScreen(),
-          TaskScreen(),
-          SettingScreen(),
-        ],
-      ),
+      body: widget.child,
       bottomNavigationBar: NavigationBar(
-        selectedIndex: _currentIndex,
-        onDestinationSelected: (index) {
-          context.go(_routes[index]);
-        },
+        selectedIndex: selectedIndex == -1 ? 0 : selectedIndex,
+        onDestinationSelected: (index) => context.go(routes[index]),
         destinations: const [
           NavigationDestination(
             icon: Icon(Icons.dashboard_outlined),
