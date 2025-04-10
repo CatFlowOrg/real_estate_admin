@@ -67,14 +67,14 @@ class _AdminScreenContentState extends State<_AdminScreenContent> {
               const SizedBox(height: 16),
               BlocBuilder<AgentBloc, AgentState>(
                 builder: (context, state) {
-                  Widget leftCard;
+                  Widget agentCard;
 
                   if (state is AgentLoading) {
-                    leftCard = const Center(child: CircularProgressIndicator());
+                    agentCard = const Center(child: CircularProgressIndicator());
                   } else if (state is AgentError) {
-                    leftCard = const Text("Error");
+                    agentCard = const Text("Error");
                   } else if (state is AgentLoaded) {
-                    leftCard = TotalAgentsCard(
+                    agentCard = TotalAgentsCard(
                       totalAgents: state.agents.length,
                       agents: state.agents,
                       isExpanded: isAgentCardExpanded,
@@ -94,11 +94,6 @@ class _AdminScreenContentState extends State<_AdminScreenContent> {
                       padding: const EdgeInsets.all(16),
                       child: Column(
                         children: [
-                          const SizedBox(
-                            width: double.infinity,
-                            child: TotalRevenueCard(),
-                          ),
-                          const SizedBox(height: 16),
                           Row(
                             children: [
                               Expanded(child: agentCard),
