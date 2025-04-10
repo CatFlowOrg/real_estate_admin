@@ -32,10 +32,9 @@ class AppTextStyles {
 
   static TextStyle subtitleText(BuildContext context) {
     return const TextStyle(
-      fontSize: 18,
+      fontSize: 16,
       fontFamily: "Inter",
       fontWeight: FontWeight.w500,
-      height: 14,
       color: AppColors.textPrimary,
     );
   }
@@ -45,18 +44,24 @@ class AppTextStyles {
       fontSize: 18,
       fontFamily: "Inter",
       fontWeight: FontWeight.w500,
-      height: 14,
       color: AppColors.textPrimary,
     );
   }
 
   static TextStyle smallText(BuildContext context) {
     return const TextStyle(
-      fontSize: 18,
+      fontSize: 14,
+      fontFamily: "Inter",
+      fontWeight: FontWeight.w300,
+      color: AppColors.textPrimary,
+    );
+  }
+  static TextStyle descText(BuildContext context) {
+    return const TextStyle(
+      fontSize: 12,
       fontFamily: "Inter",
       fontWeight: FontWeight.w500,
-      height: 14,
-      color: AppColors.textPrimary,
+      color: AppColors.textSecondary,
     );
   }
 }

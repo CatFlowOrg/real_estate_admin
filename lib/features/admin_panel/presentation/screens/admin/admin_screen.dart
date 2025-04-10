@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:real_estate_admin/core/di/injection.dart';
 import 'package:real_estate_admin/features/admin_panel/presentation/screens/admin/section/header_section_admin_panel.dart';
@@ -27,15 +26,11 @@ class _AdminScreenContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      statusBarColor: Colors.white,
-      statusBarIconBrightness: Brightness.dark,
-      statusBarBrightness: Brightness.light,
-    ));
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        body: SingleChildScrollView(
+
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: SafeArea(
+        child: SingleChildScrollView(
           padding: const EdgeInsets.all(16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -55,7 +50,7 @@ class _AdminScreenContent extends StatelessWidget {
               BlocBuilder<AgentBloc, AgentState>(
                 builder: (context, state) {
                   Widget leftCard;
-
+            
                   if (state is AgentLoading) {
                     leftCard = const Center(child: CircularProgressIndicator());
                   } else if (state is AgentError) {
@@ -68,7 +63,7 @@ class _AdminScreenContent extends StatelessWidget {
                   } else {
                     leftCard = const SizedBox.shrink();
                   }
-
+            
                   return Row(
                     children: [
                       Expanded(child: leftCard),

@@ -1,7 +1,5 @@
 part of 'real_estate_bloc.dart';
 
-
-
 abstract class RealEstateState extends Equatable {
   const RealEstateState();
 
@@ -15,6 +13,7 @@ class RealEstateStateInitial extends RealEstateState {
 
 class RealEstateStateLoading extends RealEstateState {}
 
+/*Get Real Estates*/
 class RealEstateStateSuccess extends RealEstateState {
   final RealEstateResponse realEstateResponse;
 
@@ -27,3 +26,13 @@ class RealEstateStateSuccess extends RealEstateState {
 }
 
 class RealEstateStateError extends RealEstateState {}
+
+/*Get Real Estate Details*/
+class RealEstateDetailsSuccess extends RealEstateState {
+  final RealEstateItem realEstateItem;
+
+  const RealEstateDetailsSuccess(this.realEstateItem);
+
+  @override
+  List<Object?> get props => [realEstateItem];
+}

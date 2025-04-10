@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:real_estate_admin/core/di/injection.dart';
-import 'package:real_estate_admin/core/ui/app_text_styles.dart';
+import 'package:real_estate_admin/core/ui/components/shimmer_effect_item.dart';
 import 'package:real_estate_admin/features/real_estate/presentation/bloc/real_estate_bloc.dart';
 import 'package:real_estate_admin/features/real_estate/presentation/screens/real_estate/components/real_estate_item_card.dart';
 import 'package:real_estate_admin/features/real_estate/presentation/screens/real_estate/components/search_bar_fiter.dart';
@@ -48,9 +48,7 @@ class RealEstateScreen extends StatelessWidget {
                             return InkWell(
                               onTap: () {
                                 final itemId = items[index].id;
-                                if (itemId != null) {
                                   context.push('/realEstateDetails/$itemId');
-                                }
                               },
                               child: RealEstateItemCard(item: items[index]),
                             );
@@ -63,8 +61,14 @@ class RealEstateScreen extends StatelessWidget {
                       padding: EdgeInsets.all(16),
                       child: Text("Greška pri učitavanju podataka"),
                     );
+                  }else if (state is RealEstateStateLoading) {
+                    return Expanded(
+                      child: ListView.builder(
+                        itemCount: 5,
+                        itemBuilder: (context, index) => buildShimmerCard(context),
+                      ),
+                    );
                   }
-
                   return const Padding(
                     padding: EdgeInsets.all(16),
                     child: CircularProgressIndicator(),

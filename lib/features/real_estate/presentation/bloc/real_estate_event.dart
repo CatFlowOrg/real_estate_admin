@@ -7,10 +7,16 @@ abstract class RealEstateEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-//Login user
 class GetRealEstates extends RealEstateEvent {
   const GetRealEstates();
 
   @override
   List<Object?> get props => [];
+}
+class GetRealEstateDetails extends RealEstateEvent {
+  final int id;
+  const GetRealEstateDetails(this.id);
+
+  @override
+  List<Object?> get props => [id];
 }
