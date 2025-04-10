@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:real_estate_admin/core/di/injection.dart';
 import 'package:real_estate_admin/core/theme/theme.dart';
@@ -19,6 +20,7 @@ Future<void> main() async {
 
 class MyApp extends StatelessWidget {
   final AuthNotifier authNotifier;
+
   const MyApp({super.key, required this.authNotifier});
 
   @override
@@ -35,7 +37,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MainScreen extends StatelessWidget {
+class MainScreen extends StatefulWidget {
   final Widget child;
 
   const MainScreen({
@@ -44,15 +46,34 @@ class MainScreen extends StatelessWidget {
   });
 
   @override
+  State<MainScreen> createState() => _MainScreenState();
+}
+
+class _MainScreenState extends State<MainScreen> {
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _setWhiteStatusBar();
+  }
+
+  void _setWhiteStatusBar() {
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      statusBarColor: Colors.white,
+      statusBarIconBrightness: Brightness.dark,
+      statusBarBrightness: Brightness.light,
+    ));
+  }
+
+  @override
   Widget build(BuildContext context) {
     final routes = ['/admin_panel', '/real_estate', '/task', '/setting'];
 
     final selectedIndex = routes.indexWhere(
-          (route) => GoRouterState.of(context).uri.toString().startsWith(route),
+      (route) => GoRouterState.of(context).uri.toString().startsWith(route),
     );
 
     return Scaffold(
-      body: child,
+      body: widget.child,
       bottomNavigationBar: NavigationBar(
         selectedIndex: selectedIndex == -1 ? 0 : selectedIndex,
         onDestinationSelected: (index) => context.go(routes[index]),
