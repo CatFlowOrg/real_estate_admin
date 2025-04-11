@@ -29,10 +29,10 @@ class RealEstateStateError extends RealEstateState {}
 
 /*Get Real Estate Details*/
 class RealEstateDetailsSuccess extends RealEstateState {
-  final RealEstateItem realEstateItem;
+  final RealEstateDetailsResponse realEstateDetailsResponse;
 
-  const RealEstateDetailsSuccess(this.realEstateItem);
+  const RealEstateDetailsSuccess(this.realEstateDetailsResponse);
 
   @override
-  List<Object?> get props => [realEstateItem];
+  List<Object?> get props => [realEstateDetailsResponse];
 }

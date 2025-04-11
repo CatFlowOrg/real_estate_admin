@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
-import 'package:real_estate_admin/features/real_estate/data/models/real_estate_item.dart';
+import 'package:real_estate_admin/features/real_estate/data/models/real_estate_details_response.dart';
 import 'package:real_estate_admin/features/real_estate/data/models/real_estate_response.dart';
 import 'package:real_estate_admin/features/real_estate/domain/usecase/get_real_estate_id_use_case.dart';
 import 'package:real_estate_admin/features/real_estate/domain/usecase/get_real_estates_use_case.dart';
