@@ -12,6 +12,7 @@ class SettingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return BlocProvider<AuthBloc>(
       create: (context) => getIt<AuthBloc>(),
       child: BlocListener<AuthBloc, AuthState>(
@@ -50,7 +51,7 @@ class SettingScreen extends StatelessWidget {
                         ),
                       ),
                       onPressed: () {
-                        context.read<AuthBloc>().add(const LogoutUser());
+                        // context.read<AuthBloc>().add(const LogoutUser());
                       },
                       child:  Text(
                         "Logout",

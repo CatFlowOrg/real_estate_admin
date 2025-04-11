@@ -13,8 +13,12 @@ class RealEstateScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<RealEstateBloc>(
-      create: (context)=> getIt<RealEstateBloc>()..add(const GetRealEstates()),
+      create: (context) => getIt<RealEstateBloc>()..add(const GetRealEstates()),
       child: Scaffold(
+        floatingActionButton: FloatingActionButton(
+          onPressed: () => context.push("/createRealEstate"),
+          child: const Icon(Icons.add),
+        ),
         backgroundColor: Colors.white,
         body: SafeArea(
           child: Column(
@@ -26,8 +30,8 @@ class RealEstateScreen extends StatelessWidget {
                     showModalBottomSheet(
                       context: context,
                       useRootNavigator: true,
-
-                      builder: (_) => const Center(child: Text('Filter options here')),
+                      builder: (_) =>
+                          const Center(child: Text('Filter options here')),
                     );
                   },
                   onChanged: (value) {
@@ -42,30 +46,29 @@ class RealEstateScreen extends StatelessWidget {
 
                     return Expanded(
                       child: ListView.builder(
-                        padding: const EdgeInsets.only(top: 8),
-                        itemCount: items.length,
+                          padding: const EdgeInsets.only(top: 8),
+                          itemCount: items.length,
                           itemBuilder: (context, index) {
                             return InkWell(
                               onTap: () {
                                 final itemId = items[index].id;
-                                  context.push('/realEstateDetails/$itemId');
+                                context.push('/realEstateDetails/$itemId');
                               },
                               child: RealEstateItemCard(item: items[index]),
                             );
-                          }
-
-                      ),
+                          }),
                     );
                   } else if (state is RealEstateStateError) {
                     return const Padding(
                       padding: EdgeInsets.all(16),
                       child: Text("Greška pri učitavanju podataka"),
                     );
-                  }else if (state is RealEstateStateLoading) {
+                  } else if (state is RealEstateStateLoading) {
                     return Expanded(
                       child: ListView.builder(
                         itemCount: 5,
-                        itemBuilder: (context, index) => buildShimmerCard(context),
+                        itemBuilder: (context, index) =>
+                            buildShimmerCard(context),
                       ),
                     );
                   }
@@ -75,7 +78,6 @@ class RealEstateScreen extends StatelessWidget {
                   );
                 },
               ),
-
             ],
           ),
         ),

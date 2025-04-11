@@ -1,4 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:real_estate_admin/features/real_estate/data/models/feature.dart';
+import 'package:real_estate_admin/features/real_estate/data/models/hashtag.dart';
+import 'package:real_estate_admin/features/real_estate/data/models/permit.dart';
 import 'package:real_estate_admin/features/real_estate/data/models/agent.dart';
 import 'package:real_estate_admin/features/real_estate/data/models/city.dart';
 import 'package:real_estate_admin/features/real_estate/data/models/neighborhood.dart';
@@ -6,10 +9,13 @@ import 'package:real_estate_admin/features/real_estate/data/models/owner.dart';
 import 'package:real_estate_admin/features/real_estate/data/models/owner_detail.dart';
 import 'package:real_estate_admin/features/real_estate/data/models/real_estate_image.dart';
 import 'package:real_estate_admin/features/real_estate/data/models/translation.dart';
-part 'real_estate_item.g.dart';
+
+
+part 'real_estate_details_response.g.dart';
+
 @JsonSerializable(explicitToJson: true)
-class RealEstateItem {
-  final num id;
+class RealEstateDetailsResponse {
+  final int id;
   final DateTime created;
   final DateTime lastModified;
   final int? realEstateType;
@@ -23,23 +29,42 @@ class RealEstateItem {
   final int? constructionYear;
   final int? renovationYear;
   final int? numberOfRooms;
+  final int? numberOfBathrooms;
+  final int? numberOfWcs;
   final String? keyword;
+  final String? metaDescription;
+  final String? video;
+  final String? virtualReality;
+  final String? exposeUrl;
+  final String? floor;
+  final int? buildingFloorNumber;
+  final int? parkingSpots;
+  final int? distanceToSea;
+  final int? distanceToCenter;
+  final String? address;
+  final String? cadestralMark;
+  final int? state;
   final int? status;
+
+  final int? heatingSource;
+  final int? buildingMaterial;
+  final int? realEstateSubtype;
+  final int? floorType;
+  final int? provisionPercent;
 
   final Agent? agent;
   final Neighborhood? neighborhood;
   final City? city;
-
   final OwnerDetail? ownerDetail;
   final Owner? owner;
 
   final List<Translation>? translations;
   final List<RealEstateImage>? images;
+  final List<Feature>? features;
+  final List<Permit>? permits;
+  final List<Hashtag>? hashtags;
 
-  final String? cadestralMark;
-  final String? address;
-
-  RealEstateItem({
+  RealEstateDetailsResponse({
     required this.id,
     required this.created,
     required this.lastModified,
@@ -54,8 +79,27 @@ class RealEstateItem {
     this.constructionYear,
     this.renovationYear,
     this.numberOfRooms,
+    this.numberOfBathrooms,
+    this.numberOfWcs,
     this.keyword,
+    this.metaDescription,
+    this.video,
+    this.virtualReality,
+    this.exposeUrl,
+    this.floor,
+    this.buildingFloorNumber,
+    this.parkingSpots,
+    this.distanceToSea,
+    this.distanceToCenter,
+    this.address,
+    this.cadestralMark,
+    this.state,
     this.status,
+    this.heatingSource,
+    this.buildingMaterial,
+    this.realEstateSubtype,
+    this.floorType,
+    this.provisionPercent,
     this.agent,
     this.neighborhood,
     this.city,
@@ -63,12 +107,13 @@ class RealEstateItem {
     this.owner,
     this.translations,
     this.images,
-    this.cadestralMark,
-    this.address,
+    this.features,
+    this.permits,
+    this.hashtags,
   });
 
-  factory RealEstateItem.fromJson(Map<String, dynamic> json) =>
-      _$RealEstateItemFromJson(json);
+  factory RealEstateDetailsResponse.fromJson(Map<String, dynamic> json) =>
+      _$RealEstateDetailsResponseFromJson(json);
 
-  Map<String, dynamic> toJson() => _$RealEstateItemToJson(this);
+  Map<String, dynamic> toJson() => _$RealEstateDetailsResponseToJson(this);
 }
