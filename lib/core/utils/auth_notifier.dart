@@ -5,14 +5,21 @@ class AuthNotifier extends ChangeNotifier {
   bool _loggedIn = false;
   bool get isLoggedIn => _loggedIn;
 
-  String? _token;
-  String? get token => _token;
+  String? _authToken;
+  String? get authToken => _authToken;
+
+  String? _refreshToken;
+  String? get refreshToken => _refreshToken;
 
   Future<void> init() async {
     final prefs = await SharedPreferences.getInstance();
-    final storedToken = prefs.getString('auth_token');
-    _token = storedToken;
-    _loggedIn = storedToken != null && storedToken.isNotEmpty;
+    final savedAuthToken = prefs.getString('auth_token');
+    final savedRefreshToken = prefs.getString('refresh_token');
+
+    _authToken = savedAuthToken;
+    _refreshToken = savedRefreshToken;
+    _loggedIn = (savedAuthToken != null && savedAuthToken.isNotEmpty);
+
     notifyListeners();
   }
 
@@ -21,8 +28,10 @@ class AuthNotifier extends ChangeNotifier {
     await prefs.setString('auth_token', authToken);
     await prefs.setString('refresh_token', refreshToken);
 
-    _token = authToken;
+    _authToken = authToken;
+    _refreshToken = refreshToken;
     _loggedIn = true;
+
     notifyListeners();
   }
 
@@ -31,8 +40,10 @@ class AuthNotifier extends ChangeNotifier {
     await prefs.remove('auth_token');
     await prefs.remove('refresh_token');
 
-    _token = null;
+    _authToken = null;
+    _refreshToken = null;
     _loggedIn = false;
+
     notifyListeners();
   }
 }
