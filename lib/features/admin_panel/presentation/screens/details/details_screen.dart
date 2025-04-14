@@ -35,25 +35,30 @@ class _AgentDetailsContent extends StatelessWidget {
         foregroundColor: Colors.black,
         elevation: 0,
       ),
-      body: BlocBuilder<AgentBloc, AgentState>(
-        builder: (context, state) {
-          if (state is AgentLoading) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (state is AgentLoaded) {
-            return ListView(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
-              children: [
-                AgentDetailsHeader(totalAgents: state.agents.length),
-                const AgentChart(),
-                const SizedBox(height: 10),
-                AgentDetailsBody(agents: state.agents),
-              ],
-            );
-          } else if (state is AgentError) {
-            return const Text("ERROR");
-          }
-          return const SizedBox.shrink();
-        },
+      body: ListView(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
+        children: [
+          BlocBuilder<AgentBloc, AgentState>(
+            builder: (context, state) {
+              final int total = (state is AgentLoaded) ? state.agents.length : 0;
+              return AgentDetailsHeader(totalAgents: total);
+            },
+          ),
+          const AgentChart(),
+          const SizedBox(height: 10),
+          BlocBuilder<AgentBloc, AgentState>(
+            builder: (context, state) {
+              if (state is AgentLoading) {
+                return const Center(child: CircularProgressIndicator());
+              } else if (state is AgentLoaded) {
+                return AgentDetailsBody(agents: state.agents);
+              } else if (state is AgentError) {
+                return const Text("ERROR");
+              }
+              return const Text("No data available");
+            },
+          ),
+        ],
       ),
     );
   }

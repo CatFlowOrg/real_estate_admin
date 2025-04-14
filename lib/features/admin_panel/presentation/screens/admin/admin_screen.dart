@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:real_estate_admin/core/di/injection.dart';
+import 'package:real_estate_admin/features/admin_panel/data/models/agent_model.dart';
 import 'package:real_estate_admin/features/admin_panel/presentation/screens/admin/section/header_section_admin_panel.dart';
 import 'package:real_estate_admin/features/admin_panel/presentation/screens/admin/section/total_agents_card.dart';
 import 'package:real_estate_admin/features/admin_panel/presentation/screens/admin/section/total_revenue_card.dart';
@@ -34,10 +35,12 @@ class _AdminScreenContent extends StatefulWidget {
 
 class _AdminScreenContentState extends State<_AdminScreenContent> {
   bool isAgentCardExpanded = false;
+  bool isRevenueCardExpanded = false;
 
   void toggleAgentCardExpansion() {
     setState(() {
       isAgentCardExpanded = !isAgentCardExpanded;
+      isRevenueCardExpanded = false;
     });
   }
 
@@ -68,44 +71,96 @@ class _AdminScreenContentState extends State<_AdminScreenContent> {
               BlocBuilder<AgentBloc, AgentState>(
                 builder: (context, state) {
                   Widget agentCard;
+  void toggleRevenueCardExpansion() {
+    setState(() {
+      isRevenueCardExpanded = !isRevenueCardExpanded;
+      isAgentCardExpanded = false;
+    });
+  }
 
-                  if (state is AgentLoading) {
-                    agentCard = const Center(child: CircularProgressIndicator());
-                  } else if (state is AgentError) {
-                    agentCard = const Text("Error loading agents");
-                  } else if (state is AgentLoaded) {
-                    agentCard = TotalAgentsCard(
-                      totalAgents: state.agents.length,
-                      agents: state.agents,
-                      isExpanded: isAgentCardExpanded,
-                      onToggleExpanded: toggleAgentCardExpansion,
-                    );
-                  } else {
-                    agentCard = const SizedBox.shrink();
-                  }
+  Widget _buildHeader() {
+    return const Padding(
+      padding: EdgeInsets.only(bottom: 24),
+      child: HeaderSectionAdminPanel(
+        userName: "Djordje Tovilovic",
+        userRole: "Admin",
+        imageUrl:
+            "https://media2.dev.to/dynamic/image/width=800%2Cheight=%2Cfit=scale-down%2Cgravity=auto/https%3A%2F%2Fwww.gravatar.com%2Favatar%2F2c7d99fe281ecd3bcd65ab915bac6dd5%3Fs%3D250",
+      ),
+    );
+  }
 
-                  return isAgentCardExpanded
-                      ? Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: agentCard,
-                  )
-                      : Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(child: agentCard),
-                      const SizedBox(width: 12),
-                      const Expanded(
-                        child: SizedBox(
-                          height: 120,
-                          child: Placeholder(),
-                        ),
+  Widget _buildAgentCard() {
+    return BlocBuilder<AgentBloc, AgentState>(
+      builder: (context, state) {
+        int total = 0;
+        List<AgentModel> agents = [];
+
+        if (state is AgentLoaded) {
+          total = state.agents.length;
+          agents = state.agents;
+        }
+
+        return TotalAgentsCard(
+          totalAgents: total,
+          agents: agents,
+          isExpanded: isAgentCardExpanded,
+          onToggleExpanded: toggleAgentCardExpansion,
+        );
+      },
+    );
+  }
+
+  Widget _buildRevenueCard() {
+    return TotalRevenueCard(
+      isExpanded: isRevenueCardExpanded,
+      onToggleExpanded: toggleRevenueCardExpansion,
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: isAgentCardExpanded
+              ? Column(
+                  children: [
+                    _buildHeader(),
+                    Expanded(child: _buildAgentCard()),
+                  ],
+                )
+              : isRevenueCardExpanded
+                  ? Column(
+                      children: [
+                        _buildHeader(),
+                        Expanded(child: _buildRevenueCard()),
+                      ],
+                    )
+                  : SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          _buildHeader(),
+                          _buildRevenueCard(),
+                          const SizedBox(height: 16),
+                          Row(
+                            children: [
+                              Expanded(child: _buildAgentCard()),
+                              const SizedBox(width: 12),
+                              const Expanded(
+                                child: SizedBox(
+                                  height: 120,
+                                  child: Placeholder(),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
-                    ],
-                  );
-                },
-              ),
-            ],
-          ),
+                    ),
         ),
       ),
     );
