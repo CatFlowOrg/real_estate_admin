@@ -35,15 +35,14 @@ class HeaderSectionAdminPanel extends StatelessWidget {
             children: [
               Text(
                 userResponse.firstName!,
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                  fontSize: 17,
+                  fontWeight: FontWeight.w500,
                 ),
               ),
               Text(
                 userResponse.role!,
-                style: const TextStyle(
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   fontSize: 14,
                   color: Colors.black54,
                 ),

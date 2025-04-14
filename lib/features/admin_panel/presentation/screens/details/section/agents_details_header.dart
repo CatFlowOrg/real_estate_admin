@@ -13,9 +13,9 @@ class AgentDetailsHeader extends StatelessWidget {
         const Text(
           "Total Agents",
           style: TextStyle(
-            fontSize: 16,
-            color: Colors.black54,
-            fontWeight: FontWeight.w900,
+            fontSize: 17,
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
           ),
         ),
         const SizedBox(height: 8),
@@ -24,10 +24,10 @@ class AgentDetailsHeader extends StatelessWidget {
           children: [
             Text(
               "$totalAgents",
-              style: const TextStyle(
-                fontSize: 36,
-                fontWeight: FontWeight.bold,
-              ),
+              style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 32,
+                  ),
             ),
             const SizedBox(width: 8),
             Padding(
@@ -38,9 +38,12 @@ class AgentDetailsHeader extends StatelessWidget {
                   color: const Color(0xFFFFF4CC),
                   borderRadius: BorderRadius.circular(6),
                 ),
-                child: const Text(
+                child: Text(
                   "↑ 0%",
-                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
+                  style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 14,
+                      ),
                 ),
               ),
             ),

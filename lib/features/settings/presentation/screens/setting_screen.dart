@@ -55,7 +55,7 @@ class SettingScreen extends StatelessWidget {
                             ),
                           ),
                           onPressed: () {
-                            // context.read<AuthBloc>().add(const  LogoutUser());
+                            context.read<AuthBloc>().add(const  LogoutUser());
                             authRepository.getUser();
                           },
                           child:  Text(

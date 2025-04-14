@@ -21,10 +21,12 @@ class AgentChart extends StatelessWidget {
           ),
         ],
       ),
-      child: const Center(
+      child: Center(
         child: Text(
           "Chart Placeholder",
-          style: TextStyle(color: Colors.black38),
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                color: Colors.black38,
+              ),
         ),
       ),
     );

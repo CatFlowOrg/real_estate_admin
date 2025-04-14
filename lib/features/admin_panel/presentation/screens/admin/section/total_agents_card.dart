@@ -22,7 +22,43 @@ class TotalAgentsCard extends StatefulWidget {
   State<TotalAgentsCard> createState() => _TotalAgentsCardState();
 }
 
-class _TotalAgentsCardState extends State<TotalAgentsCard> {
+class _TotalAgentsCardState extends State<TotalAgentsCard>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 800),
+    );
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted && widget.isExpanded) {
+        _controller.forward();
+      }
+    });
+  }
+
+  @override
+  void didUpdateWidget(TotalAgentsCard oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.isExpanded != oldWidget.isExpanded) {
+      if (widget.isExpanded) {
+        _controller.forward();
+      } else {
+        _controller.reverse();
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
   void _navigateToDetails() {
     context.push('/details');
   }
@@ -53,12 +89,11 @@ class _TotalAgentsCardState extends State<TotalAgentsCard> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
+                Text(
                   "Total Agents",
-                  style: TextStyle(
-                    fontSize: 15,
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 17,
                   ),
                 ),
                 InkWell(
@@ -86,57 +121,59 @@ class _TotalAgentsCardState extends State<TotalAgentsCard> {
                 Expanded(
                   child: Text(
                     "${widget.totalAgents}",
-                    style: const TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: Theme.of(context)
+                        .textTheme
+                        .headlineSmall
+                        ?.copyWith(fontWeight: FontWeight.w600, fontSize: 32),
                   ),
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    SizedBox(
-                      width: 60,
-                      height: 40,
-                      child: LineChart(
-                        LineChartData(
-                          lineBarsData: [
-                            LineChartBarData(
-                              spots: const [
-                                FlSpot(0, 23),
-                                FlSpot(1, 26),
-                                FlSpot(2, 27),
-                              ],
-                              isCurved: true,
-                              dotData: const FlDotData(show: false),
-                              belowBarData: BarAreaData(show: false),
-                              color: Colors.green,
-                              barWidth: 2,
-                            ),
-                          ],
-                          titlesData: const FlTitlesData(show: false),
-                          gridData: const FlGridData(show: false),
-                          borderData: FlBorderData(show: false),
-                          lineTouchData: const LineTouchData(enabled: false),
-                          minX: 0,
-                          maxX: 2,
-                          minY: 20,
-                          maxY: 30,
+                SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      SizedBox(
+                        width: 60,
+                        height: 40,
+                        child: LineChart(
+                          LineChartData(
+                            lineBarsData: [
+                              LineChartBarData(
+                                spots: const [
+                                  FlSpot(0, 23),
+                                  FlSpot(1, 26),
+                                  FlSpot(2, 27),
+                                ],
+                                isCurved: true,
+                                dotData: const FlDotData(show: false),
+                                belowBarData: BarAreaData(show: false),
+                                color: Colors.green,
+                                barWidth: 2,
+                              ),
+                            ],
+                            titlesData: const FlTitlesData(show: false),
+                            gridData: const FlGridData(show: false),
+                            borderData: FlBorderData(show: false),
+                            lineTouchData: const LineTouchData(enabled: false),
+                            minX: 0,
+                            maxX: 2,
+                            minY: 20,
+                            maxY: 30,
+                          ),
                         ),
                       ),
-                    ),
-                    const SizedBox(height: 4),
-                    const Text(
-                      "Last month, 23",
-                      style: TextStyle(fontSize: 12, color: Colors.black38),
-                    ),
-                  ],
+                      const SizedBox(height: 4),
+                      Text(
+                        "Last month, 23",
+                        style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                          color: Colors.black38,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
-            if (widget.isExpanded) ...[
-              const SizedBox(height: 12),
-            ]
           ],
         ),
       ),

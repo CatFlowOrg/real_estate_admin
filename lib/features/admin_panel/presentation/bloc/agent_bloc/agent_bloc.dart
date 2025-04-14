@@ -26,17 +26,6 @@ class AgentBloc extends Bloc<AgentEvent, AgentState> {
 
     emit(AgentLoading());
 
-// test 1: simulate empty list
-    emit(const AgentLoaded([]));
-
-// test 2: simulate delay + empty list
-    await Future.delayed(const Duration(seconds: 4));
-    emit(const AgentLoaded([]));
-
-// test 3: simulate error
-    emit(const AgentError("API not reachable"));
-
-
     final dataState = await getAgentsUseCase(params: event.language);
 
     if (dataState.isSuccess && dataState.data != null) {

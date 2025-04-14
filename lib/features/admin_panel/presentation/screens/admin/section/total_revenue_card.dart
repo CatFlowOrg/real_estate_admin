@@ -34,9 +34,12 @@ class TotalRevenueCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
+              Text(
                 "Total Revenue",
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 17,
+                    ),
               ),
               InkWell(
                 onTap: onToggleExpanded,
@@ -57,13 +60,19 @@ class TotalRevenueCard extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 8),
-          const Text(
+          Text(
             "\$324,424,693",
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
+            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                  fontWeight: FontWeight.w600,
+                ),
           ),
           const SizedBox(height: 4),
-          const Text("↑ 4.9%", style: TextStyle(color: Colors.green)),
-
+          Text(
+            "↑ 4.9%",
+            style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                  color: Colors.green,
+                ),
+          ),
           if (isExpanded) ...[
             const SizedBox(height: 12),
           ],
