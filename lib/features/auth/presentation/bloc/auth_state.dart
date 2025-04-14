@@ -31,3 +31,9 @@ class LoginStateError extends AuthState {}
 class LogoutStateSuccess extends AuthState {}
 
 class LogoutStateError extends AuthState {}
+
+class GetUserInfoSuccess extends AuthState {
+  final UserResponse userResponse;
+
+  const GetUserInfoSuccess({required this.userResponse});
+}

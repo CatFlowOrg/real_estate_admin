@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:real_estate_admin/features/auth/data/models/token_response.dart';
 import 'package:real_estate_admin/features/auth/data/models/user_response.dart';
 import 'package:real_estate_admin/features/real_estate/data/models/real_estate_details_response.dart';
 import 'package:real_estate_admin/features/real_estate/data/models/real_estate_response.dart';
@@ -22,9 +23,11 @@ abstract class AuthApiService {
   @GET('/Auth/me')
   Future<HttpResponse<UserResponse>> getUser();
 
-
   @GET('/Agents')
   Future<HttpResponse<List<AgentModel>>> getAgents(@Query('Language') int language);
+
+  @POST("/Auth/tokens/refresh")
+  Future<HttpResponse<TokenResponse>> getToken(@Body() String refreshToken);
 
   /* -------------------Real Estate--------------------------- */
   @GET("/RealEstates/filter/active")

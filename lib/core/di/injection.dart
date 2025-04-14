@@ -25,7 +25,7 @@ abstract class AppModule {
     dio.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) {
-          final token = authNotifier.token;
+          final token = authNotifier.authToken;
           if (token != null && token.isNotEmpty) {
             options.headers['Authorization'] = 'Bearer $token';
           }
