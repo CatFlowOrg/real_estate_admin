@@ -21,3 +21,10 @@ class LoginUser extends AuthEvent {
 class LogoutUser extends AuthEvent {
   const LogoutUser();
 }
+
+//Get User Info
+class GetUserInfo extends AuthEvent{
+  const GetUserInfo();
+  @override
+  List<Object?> get props => [];
+}

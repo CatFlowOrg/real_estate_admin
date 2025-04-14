@@ -1,19 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:material_symbols_icons/symbols.dart';
 import 'package:real_estate_admin/core/ui/components/circle_icon_button.dart';
+import 'package:real_estate_admin/features/auth/data/models/user_response.dart';
 
 class HeaderSectionAdminPanel extends StatelessWidget {
-  final String imageUrl;
-  final String userName;
-  final String userRole;
+  final UserResponse userResponse;
   final VoidCallback? notificationButton;
   final VoidCallback? addWidgetButton;
 
   const HeaderSectionAdminPanel({
     super.key,
-    required this.imageUrl,
-    required this.userName,
-    required this.userRole,
+    required this.userResponse,
     this.addWidgetButton,
     this.notificationButton,
   });
@@ -29,7 +26,7 @@ class HeaderSectionAdminPanel extends StatelessWidget {
         children: [
           CircleAvatar(
             radius: 24,
-            backgroundImage: NetworkImage(imageUrl),
+            backgroundImage: NetworkImage(userResponse.imageUrl!),
           ),
           const SizedBox(width: 8),
           Column(
@@ -37,7 +34,7 @@ class HeaderSectionAdminPanel extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                userName,
+                userResponse.firstName!,
                 style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
@@ -45,7 +42,7 @@ class HeaderSectionAdminPanel extends StatelessWidget {
                 ),
               ),
               Text(
-                userRole,
+                userResponse.role!,
                 style: const TextStyle(
                   fontSize: 14,
                   color: Colors.black54,
