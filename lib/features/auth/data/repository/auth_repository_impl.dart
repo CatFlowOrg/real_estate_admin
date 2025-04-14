@@ -49,7 +49,6 @@ class AuthRepositoryImpl implements AuthRepository {
     try {
       final response = await api.getUser();
       final statusCode = response.response.statusCode ?? 0;
-      print(response.response.statusCode);
       if (statusCode >= 200 && statusCode < 300) {
         return DataState.success(response.data);
       } else {
