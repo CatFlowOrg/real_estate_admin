@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:material_symbols_icons/symbols.dart';
+import 'package:real_estate_admin/core/ui/app_text_styles.dart';
 import 'package:real_estate_admin/core/ui/components/circle_icon_button.dart';
 import 'package:real_estate_admin/features/auth/data/models/user_response.dart';
 
@@ -35,18 +36,11 @@ class HeaderSectionAdminPanel extends StatelessWidget {
             children: [
               Text(
                 userResponse.firstName!,
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                ),
+                style: AppTextStyles.nameText(context),
               ),
               Text(
                 userResponse.role!,
-                style: const TextStyle(
-                  fontSize: 14,
-                  color: Colors.black54,
-                ),
+                style: AppTextStyles.roleText(context),
               ),
             ],
           ),

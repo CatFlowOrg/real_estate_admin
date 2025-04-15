@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:real_estate_admin/core/ui/app_text_styles.dart';
 
 class AgentDetailsHeader extends StatelessWidget {
   final int totalAgents;
@@ -10,13 +11,9 @@ class AgentDetailsHeader extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
+        Text(
           "Total Agents",
-          style: TextStyle(
-            fontSize: 16,
-            color: Colors.black54,
-            fontWeight: FontWeight.w900,
-          ),
+          style: AppTextStyles.nameText(context),
         ),
         const SizedBox(height: 8),
         Row(
@@ -24,10 +21,7 @@ class AgentDetailsHeader extends StatelessWidget {
           children: [
             Text(
               "$totalAgents",
-              style: const TextStyle(
-                fontSize: 36,
-                fontWeight: FontWeight.bold,
-              ),
+              style: AppTextStyles.widgetText(context)
             ),
             const SizedBox(width: 8),
             Padding(
@@ -38,9 +32,9 @@ class AgentDetailsHeader extends StatelessWidget {
                   color: const Color(0xFFFFF4CC),
                   borderRadius: BorderRadius.circular(6),
                 ),
-                child: const Text(
+                child: Text(
                   "↑ 0%",
-                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
+                  style: AppTextStyles.percentageTextBrown(context),
                 ),
               ),
             ),

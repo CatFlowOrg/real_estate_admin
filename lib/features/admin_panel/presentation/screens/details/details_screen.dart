@@ -7,6 +7,7 @@ import 'package:real_estate_admin/features/admin_panel/presentation/screens/deta
 import 'package:real_estate_admin/features/admin_panel/presentation/bloc/agent_bloc/agent_bloc.dart';
 import 'package:real_estate_admin/features/admin_panel/presentation/bloc/agent_bloc/agent_event.dart';
 import 'package:real_estate_admin/features/admin_panel/presentation/bloc/agent_bloc/agent_state.dart';
+import 'package:real_estate_admin/core/ui/components/search_bar_filter.dart';
 
 class DetailsScreen extends StatelessWidget {
   const DetailsScreen({super.key});
@@ -20,45 +21,73 @@ class DetailsScreen extends StatelessWidget {
   }
 }
 
-class _AgentDetailsContent extends StatelessWidget {
+class _AgentDetailsContent extends StatefulWidget {
   const _AgentDetailsContent();
+
+  @override
+  State<_AgentDetailsContent> createState() => _AgentDetailsContentState();
+}
+
+class _AgentDetailsContentState extends State<_AgentDetailsContent> {
+  String _searchQuery = "";
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        forceMaterialTransparency: true,
-        title: const Text('Total Agents'),
-        centerTitle: true,
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
-        elevation: 0,
-      ),
-      body: ListView(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
-        children: [
-          BlocBuilder<AgentBloc, AgentState>(
-            builder: (context, state) {
-              final int total = (state is AgentLoaded) ? state.agents.length : 0;
-              return AgentDetailsHeader(totalAgents: total);
-            },
-          ),
-          const AgentChart(),
-          const SizedBox(height: 10),
-          BlocBuilder<AgentBloc, AgentState>(
-            builder: (context, state) {
-              if (state is AgentLoading) {
-                return const Center(child: CircularProgressIndicator());
-              } else if (state is AgentLoaded) {
-                return AgentDetailsBody(agents: state.agents);
-              } else if (state is AgentError) {
-                return const Text("ERROR");
-              }
-              return const Text("No data available");
-            },
-          ),
-        ],
+      body: SafeArea(
+        child: ListView(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
+          children: [
+            SearchBarFilter(
+              hintText: "Pretraga agenata...",
+              onChanged: (value) {
+                setState(() {
+                  _searchQuery = value.toLowerCase();
+                });
+              },
+              onFilterTap: () {
+                showModalBottomSheet(
+                  context: context,
+                  builder: (_) =>
+                      const Center(child: Text("Ovde idu filteri agenata")),
+                );
+              },
+            ),
+            const SizedBox(height: 16),
+            BlocBuilder<AgentBloc, AgentState>(
+              builder: (context, state) {
+                final int total =
+                    (state is AgentLoaded) ? state.agents.length : 0;
+                return AgentDetailsHeader(totalAgents: total);
+              },
+            ),
+            const AgentChart(),
+            const SizedBox(height: 10),
+            BlocBuilder<AgentBloc, AgentState>(
+              builder: (context, state) {
+                if (state is AgentLoading) {
+                  return const Center(child: CircularProgressIndicator());
+                } else if (state is AgentLoaded) {
+                  final query = _searchQuery.trim().toLowerCase();
+
+                  final filteredAgents = state.agents.where((agent) {
+                    final first = agent.firstName.toLowerCase();
+                    final last = agent.lastName.toLowerCase();
+                    final full = "$first $last";
+                    return first.contains(query) ||
+                        last.contains(query) ||
+                        full.contains(query);
+                  }).toList();
+                  return AgentDetailsBody(agents: filteredAgents);
+                } else if (state is AgentError) {
+                  return const Text("ERROR");
+                }
+                return const Text("No data available");
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

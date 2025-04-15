@@ -10,7 +10,6 @@ import 'package:real_estate_admin/features/admin_panel/presentation/bloc/agent_b
 import 'package:real_estate_admin/features/admin_panel/presentation/bloc/agent_bloc/agent_state.dart';
 import 'package:real_estate_admin/features/auth/presentation/bloc/auth_bloc.dart';
 
-
 class AdminScreen extends StatelessWidget {
   const AdminScreen({super.key});
 
@@ -95,52 +94,110 @@ class _AdminScreenContentState extends State<_AdminScreenContent> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: isAgentCardExpanded
-              ? Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildHeader(),
-              const SizedBox(height: 16),
-              Expanded(child: _buildAgentCard()),
-            ],
-          )
-              : isRevenueCardExpanded
-              ? Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildHeader(),
-              const SizedBox(height: 16),
-              Expanded(child: _buildRevenueCard()),
-            ],
-          )
-              : SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _buildHeader(),
-                const SizedBox(height: 24),
-                _buildRevenueCard(),
-                const SizedBox(height: 16),
-                Row(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              child: _buildHeader(),
+            ),
+            const SizedBox(height: 8),
+            Expanded(
+              child: Container(
+                color: Colors.white,
+                child: Stack(
                   children: [
-                    Expanded(child: _buildAgentCard()),
-                    const SizedBox(width: 12),
-                    const Expanded(
-                      child: SizedBox(
-                        height: 120,
-                        child: Placeholder(),
+                    Positioned.fill(
+                      child: Container(color: Colors.white),
+                    ),
+                    AnimatedOpacity(
+                      duration: const Duration(milliseconds: 300),
+                      opacity: isAgentCardExpanded || isRevenueCardExpanded ? 0.0 : 1.0,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: SingleChildScrollView(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              _buildRevenueCard(),
+                              const SizedBox(height: 16),
+                              Row(
+                                children: [
+                                  Expanded(child: _buildAgentCard()),
+                                  const SizedBox(width: 12),
+                                  const Expanded(
+                                    child: SizedBox(
+                                      height: 120,
+                                      child: Placeholder(
+                                        color: Colors.grey,      // ili white
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+
+                    AnimatedPositioned(
+                      duration: const Duration(milliseconds: 600),
+                      curve: Curves.easeInOut,
+                      left: isAgentCardExpanded ? 0 : MediaQuery.of(context).size.width * 0.05,
+                      top: isAgentCardExpanded ? 0 : MediaQuery.of(context).size.height * 0.25,
+                      right: isAgentCardExpanded ? 0 : MediaQuery.of(context).size.width * 0.05,
+                      height: isAgentCardExpanded ? MediaQuery.of(context).size.height : 200,
+                      child: IgnorePointer(
+                        ignoring: !isAgentCardExpanded,
+                        child: AnimatedOpacity(
+                          duration: const Duration(milliseconds: 300),
+                          opacity: isAgentCardExpanded ? 1.0 : 0.0,
+                          child: Material(
+                            color: Colors.white,
+                            elevation: 6,
+                            borderRadius: BorderRadius.circular(isAgentCardExpanded ? 0 : 20),
+                            child: Padding(
+                              padding: isAgentCardExpanded ? EdgeInsets.zero : const EdgeInsets.all(16),
+                              child: _buildAgentCard(),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+
+                    AnimatedPositioned(
+                      duration: const Duration(milliseconds: 600),
+                      curve: Curves.easeInOut,
+                      left: isRevenueCardExpanded ? 0 : MediaQuery.of(context).size.width * 0.05,
+                      top: isRevenueCardExpanded ? 0 : MediaQuery.of(context).size.height * 0.15,
+                      right: isRevenueCardExpanded ? 0 : MediaQuery.of(context).size.width * 0.05,
+                      height: isRevenueCardExpanded ? MediaQuery.of(context).size.height : 180,
+                      child: IgnorePointer(
+                        ignoring: !isRevenueCardExpanded,
+                        child: AnimatedOpacity(
+                          duration: const Duration(milliseconds: 300),
+                          opacity: isRevenueCardExpanded ? 1.0 : 0.0,
+                          child: Material(
+                            color: Colors.white,
+                            elevation: 6,
+                            borderRadius: BorderRadius.circular(isRevenueCardExpanded ? 0 : 20),
+                            child: Padding(
+                              padding: isRevenueCardExpanded ? EdgeInsets.zero : const EdgeInsets.all(16),
+                              child: _buildRevenueCard(),
+                            ),
+                          ),
+                        ),
                       ),
                     ),
                   ],
                 ),
-              ],
-            ),
-          ),
+              ),
+            )
+          ],
         ),
       ),
     );

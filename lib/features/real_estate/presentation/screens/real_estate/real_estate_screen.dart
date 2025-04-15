@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:real_estate_admin/core/di/injection.dart';
+import 'package:real_estate_admin/core/ui/components/search_bar_filter.dart';
 import 'package:real_estate_admin/core/ui/components/shimmer_effect_item.dart';
 import 'package:real_estate_admin/features/real_estate/presentation/bloc/real_estate_bloc.dart';
 import 'package:real_estate_admin/features/real_estate/presentation/screens/real_estate/components/real_estate_item_card.dart';
-import 'package:real_estate_admin/features/real_estate/presentation/screens/real_estate/components/search_bar_fiter.dart';
 
 class RealEstateScreen extends StatelessWidget {
   const RealEstateScreen({super.key});

@@ -1,5 +1,5 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:real_estate_admin/core/ui/app_text_styles.dart';
 import 'package:real_estate_admin/features/admin_panel/data/models/agent_model.dart';
 
 class AgentDetailsGridView extends StatelessWidget {
@@ -42,21 +42,13 @@ class AgentDetailsGridView extends StatelessWidget {
                 backgroundColor: Colors.grey[300],
                 child: ClipOval(
                   child: agent.imageUrl != null && agent.imageUrl!.isNotEmpty
-                      ? CachedNetworkImage(
-                          imageUrl: agent.imageUrl!,
+                      ? Image.network(
+                          agent.imageUrl!,
                           width: 56,
                           height: 56,
                           fit: BoxFit.cover,
-                          fadeInDuration: const Duration(milliseconds: 100),
-                          placeholder: (context, url) => const SizedBox(
-                            width: 24,
-                            height: 24,
-                            child: CircularProgressIndicator(strokeWidth: 2),
-                          ),
-                          errorWidget: (context, url, error) =>
+                          errorBuilder: (context, error, stackTrace) =>
                               const Icon(Icons.person, color: Colors.white),
-                          useOldImageOnUrlChange: true,
-                          cacheKey: agent.imageUrl,
                         )
                       : const Icon(Icons.person, color: Colors.white),
                 ),
@@ -64,14 +56,13 @@ class AgentDetailsGridView extends StatelessWidget {
               const SizedBox(height: 8),
               Text(
                 "${agent.firstName} ${agent.lastName}",
-                style:
-                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                style: AppTextStyles.listText(context),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 4),
               Text(
                 agent.role ?? "-",
-                style: const TextStyle(color: Colors.black54, fontSize: 12),
+                style: AppTextStyles.roleText(context),
                 maxLines: 3,
                 overflow: TextOverflow.ellipsis,
                 textAlign: TextAlign.center,
