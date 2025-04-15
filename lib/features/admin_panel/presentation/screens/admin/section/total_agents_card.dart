@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:go_router/go_router.dart';
+import 'package:real_estate_admin/core/ui/app_text_styles.dart';
 import 'package:real_estate_admin/features/admin_panel/data/models/agent_model.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
 
@@ -91,10 +92,7 @@ class _TotalAgentsCardState extends State<TotalAgentsCard>
               children: [
                 Text(
                   "Total Agents",
-                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 17,
-                  ),
+                  style: AppTextStyles.nameText(context),
                 ),
                 InkWell(
                   onTap: widget.onToggleExpanded,
@@ -121,10 +119,7 @@ class _TotalAgentsCardState extends State<TotalAgentsCard>
                 Expanded(
                   child: Text(
                     "${widget.totalAgents}",
-                    style: Theme.of(context)
-                        .textTheme
-                        .headlineSmall
-                        ?.copyWith(fontWeight: FontWeight.w600, fontSize: 32),
+                    style: AppTextStyles.widgetText(context),
                   ),
                 ),
                 SingleChildScrollView(
@@ -164,10 +159,7 @@ class _TotalAgentsCardState extends State<TotalAgentsCard>
                       const SizedBox(height: 4),
                       Text(
                         "Last month, 23",
-                        style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                          color: Colors.black38,
-                          fontSize: 12,
-                        ),
+                        style: AppTextStyles.roleText(context),
                       ),
                     ],
                   ),

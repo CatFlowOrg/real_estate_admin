@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
+import 'package:real_estate_admin/core/ui/app_text_styles.dart';
 
 class TotalRevenueCard extends StatelessWidget {
   final bool isExpanded;
@@ -30,16 +31,12 @@ class TotalRevenueCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Dodaj naslov i dugme za expand/collapse
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
                 "Total Revenue",
-                style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 17,
-                    ),
+                style: AppTextStyles.nameText(context),
               ),
               InkWell(
                 onTap: onToggleExpanded,
@@ -62,16 +59,12 @@ class TotalRevenueCard extends StatelessWidget {
           const SizedBox(height: 8),
           Text(
             "\$324,424,693",
-            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                  fontWeight: FontWeight.w600,
-                ),
+            style: AppTextStyles.widgetText(context),
           ),
           const SizedBox(height: 4),
           Text(
             "↑ 4.9%",
-            style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                  color: Colors.green,
-                ),
+            style: AppTextStyles.percentageText(context),
           ),
           if (isExpanded) ...[
             const SizedBox(height: 12),

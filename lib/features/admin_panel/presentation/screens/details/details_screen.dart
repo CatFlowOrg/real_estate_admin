@@ -69,11 +69,15 @@ class _AgentDetailsContentState extends State<_AgentDetailsContent> {
                 if (state is AgentLoading) {
                   return const Center(child: CircularProgressIndicator());
                 } else if (state is AgentLoaded) {
+                  final query = _searchQuery.trim().toLowerCase();
+
                   final filteredAgents = state.agents.where((agent) {
                     final first = agent.firstName.toLowerCase();
                     final last = agent.lastName.toLowerCase();
-                    return first.startsWith(_searchQuery) ||
-                        last.startsWith(_searchQuery);
+                    final full = "$first $last";
+                    return first.contains(query) ||
+                        last.contains(query) ||
+                        full.contains(query);
                   }).toList();
                   return AgentDetailsBody(agents: filteredAgents);
                 } else if (state is AgentError) {

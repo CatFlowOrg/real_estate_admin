@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:real_estate_admin/core/ui/app_text_styles.dart';
 
 class AgentChart extends StatelessWidget {
   const AgentChart({super.key});
@@ -24,10 +25,8 @@ class AgentChart extends StatelessWidget {
       child: Center(
         child: Text(
           "Chart Placeholder",
-          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                color: Colors.black38,
-              ),
-        ),
+          style: AppTextStyles.descText(context),
+        )
       ),
     );
   }

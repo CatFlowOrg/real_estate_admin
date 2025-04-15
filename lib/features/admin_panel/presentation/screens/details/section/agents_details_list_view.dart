@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:real_estate_admin/core/ui/app_text_styles.dart';
 import 'package:real_estate_admin/features/admin_panel/data/models/agent_model.dart';
 
 class AgentDetailsListView extends StatelessWidget {
@@ -35,23 +36,18 @@ class AgentDetailsListView extends StatelessWidget {
           ),
           title: Text(
             "${agent.firstName} ${agent.lastName}",
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 14,
-                ),
+            style: AppTextStyles.listText(context),
           ),
           subtitle: Text(
             agent.role ?? "-",
-            style: Theme.of(context).textTheme.bodySmall,
+            style: AppTextStyles.roleText(context),
           ),
           trailing: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
                 agent.officeName,
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: Colors.black45,
-                    ),
+                style: AppTextStyles.roleText(context)
               ),
               const SizedBox(width: 4),
               const Icon(Icons.location_pin, size: 16, color: Colors.black26),

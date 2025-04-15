@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:real_estate_admin/core/ui/app_text_styles.dart';
 import 'package:real_estate_admin/features/admin_panel/data/models/agent_model.dart';
 
 class AgentDetailsGridView extends StatelessWidget {
@@ -55,20 +56,13 @@ class AgentDetailsGridView extends StatelessWidget {
               const SizedBox(height: 8),
               Text(
                 "${agent.firstName} ${agent.lastName}",
-                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14,
-                    ),
+                style: AppTextStyles.listText(context),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 4),
               Text(
                 agent.role ?? "-",
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: Colors.black,
-                      fontWeight: FontWeight.w400,
-                      fontSize: 12,
-                    ),
+                style: AppTextStyles.roleText(context),
                 maxLines: 3,
                 overflow: TextOverflow.ellipsis,
                 textAlign: TextAlign.center,

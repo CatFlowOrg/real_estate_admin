@@ -157,6 +157,7 @@ class _AdminScreenContentState extends State<_AdminScreenContent> {
                           duration: const Duration(milliseconds: 300),
                           opacity: isAgentCardExpanded ? 1.0 : 0.0,
                           child: Material(
+                            color: Colors.white,
                             elevation: 6,
                             borderRadius: BorderRadius.circular(isAgentCardExpanded ? 0 : 20),
                             child: Padding(
@@ -181,6 +182,7 @@ class _AdminScreenContentState extends State<_AdminScreenContent> {
                           duration: const Duration(milliseconds: 300),
                           opacity: isRevenueCardExpanded ? 1.0 : 0.0,
                           child: Material(
+                            color: Colors.white,
                             elevation: 6,
                             borderRadius: BorderRadius.circular(isRevenueCardExpanded ? 0 : 20),
                             child: Padding(
