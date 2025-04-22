@@ -36,3 +36,12 @@ class RealEstateDetailsSuccess extends RealEstateState {
   @override
   List<Object?> get props => [realEstateDetailsResponse];
 }
+
+//Get location
+class RealEstateGetLocationSuccess  extends RealEstateState{
+  final Placemark placemark;
+  const RealEstateGetLocationSuccess(this.placemark);
+
+  @override
+  List<Object?> get props => [placemark];
+}

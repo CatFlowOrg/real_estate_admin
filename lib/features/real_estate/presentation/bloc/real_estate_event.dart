@@ -20,3 +20,7 @@ class GetRealEstateDetails extends RealEstateEvent {
   @override
   List<Object?> get props => [id];
 }
+
+class GetLocation extends RealEstateEvent{
+  const GetLocation();
+}

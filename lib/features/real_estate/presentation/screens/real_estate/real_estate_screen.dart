@@ -13,7 +13,8 @@ class RealEstateScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<RealEstateBloc>(
-      create: (context) => getIt<RealEstateBloc>()..add(const GetRealEstates()),
+      create: (context) =>
+      getIt<RealEstateBloc>()..add(const GetRealEstates()),
       child: Scaffold(
         floatingActionButton: FloatingActionButton(
           onPressed: () => context.push("/createRealEstate"),
@@ -25,27 +26,36 @@ class RealEstateScreen extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.all(16),
-                child: SearchBarFilter(
-                  onFilterTap: () {
-                    showModalBottomSheet(
-                      context: context,
-                      useRootNavigator: true,
-                      builder: (_) =>
-                          const Center(child: Text('Filter options here')),
+                child: Builder(
+                  builder: (context) {
+                    return SearchBarFilter(
+                      onFilterTap: () {
+                        context
+                            .read<RealEstateBloc>()
+                            .add(const GetLocation());
+                      },
+                      onChanged: (value) {
+                        // Ovde filtriraj listu nekretnina
+                      },
                     );
-                  },
-                  onChanged: (value) {
-                    // Ovde filtriraj listu nekretnina
                   },
                 ),
               ),
-              BlocBuilder<RealEstateBloc, RealEstateState>(
-                builder: (context, state) {
-                  if (state is RealEstateStateSuccess) {
-                    final items = state.realEstateResponse.items ?? [];
+              Expanded(
+                child: BlocListener<RealEstateBloc, RealEstateState>(
+                  listener: (context, state) {
+                    if (state is RealEstateGetLocationSuccess) {
+                      final location = state.placemark;
+                      print(
+                          'Lokacija: ${location.locality}, ${location.administrativeArea}, ${location.country}');
+                    }
+                  },
+                  child: BlocBuilder<RealEstateBloc, RealEstateState>(
+                    builder: (context, state) {
+                      if (state is RealEstateStateSuccess) {
+                        final items = state.realEstateResponse.items ?? [];
 
-                    return Expanded(
-                      child: ListView.builder(
+                        return ListView.builder(
                           padding: const EdgeInsets.only(top: 8),
                           itemCount: items.length,
                           itemBuilder: (context, index) {
@@ -56,27 +66,26 @@ class RealEstateScreen extends StatelessWidget {
                               },
                               child: RealEstateItemCard(item: items[index]),
                             );
-                          }),
-                    );
-                  } else if (state is RealEstateStateError) {
-                    return const Padding(
-                      padding: EdgeInsets.all(16),
-                      child: Text("Greška pri učitavanju podataka"),
-                    );
-                  } else if (state is RealEstateStateLoading) {
-                    return Expanded(
-                      child: ListView.builder(
-                        itemCount: 5,
-                        itemBuilder: (context, index) =>
-                            buildShimmerCard(context),
-                      ),
-                    );
-                  }
-                  return const Padding(
-                    padding: EdgeInsets.all(16),
-                    child: CircularProgressIndicator(),
-                  );
-                },
+                          },
+                        );
+                      } else if (state is RealEstateStateError) {
+                        return const Padding(
+                          padding: EdgeInsets.all(16),
+                          child: Text("Greška pri učitavanju podataka"),
+                        );
+                      } else if (state is RealEstateStateLoading) {
+                        return ListView.builder(
+                          itemCount: 5,
+                          itemBuilder: (context, index) =>
+                              buildShimmerCard(context),
+                        );
+                      }
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    },
+                  ),
+                ),
               ),
             ],
           ),

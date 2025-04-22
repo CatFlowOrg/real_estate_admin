@@ -1,8 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:injectable/injectable.dart';
 import 'package:real_estate_admin/features/real_estate/data/models/real_estate_details_response.dart';
 import 'package:real_estate_admin/features/real_estate/data/models/real_estate_response.dart';
+import 'package:real_estate_admin/features/real_estate/domain/usecase/get_location_data_use_case.dart';
 import 'package:real_estate_admin/features/real_estate/domain/usecase/get_real_estate_id_use_case.dart';
 import 'package:real_estate_admin/features/real_estate/domain/usecase/get_real_estates_use_case.dart';
 
@@ -14,11 +16,13 @@ part 'real_estate_state.dart';
 class RealEstateBloc extends Bloc<RealEstateEvent, RealEstateState> {
   final GetRealEstatesUseCase _getRealEstatesUseCase;
   final GetRealEstateIdUseCase _getRealEstateIdUseCase;
+  final GetLocationDataUseCase _getLocationDataUseCase;
 
-  RealEstateBloc(this._getRealEstatesUseCase, this._getRealEstateIdUseCase)
+  RealEstateBloc(this._getRealEstatesUseCase, this._getRealEstateIdUseCase, this._getLocationDataUseCase)
       : super(const RealEstateStateInitial()) {
     on<GetRealEstates>(_getRealEstates);
     on<GetRealEstateDetails>(_getRealEstateDetails);
+    on<GetLocation>(_getLocation);
   }
 
   Future<void> _getRealEstates(
@@ -42,4 +46,17 @@ class RealEstateBloc extends Bloc<RealEstateEvent, RealEstateState> {
       emit(RealEstateStateError());
     }
   }
+
+  Future<void> _getLocation(GetLocation event, Emitter<RealEstateState> emit)async{
+    emit(RealEstateStateLoading());
+
+    final dataState = await _getLocationDataUseCase();
+    if (dataState.isSuccess && dataState.data != null) {
+      emit(RealEstateGetLocationSuccess(dataState.data!));
+    } else {
+      emit(RealEstateStateError());
+    }
+  }
+
+
 }
