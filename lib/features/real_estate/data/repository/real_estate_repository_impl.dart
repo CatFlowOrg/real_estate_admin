@@ -47,4 +47,5 @@ class RealEstateRepositoryImpl implements RealEstateRepository {
       );
     }
   }
+
 }
