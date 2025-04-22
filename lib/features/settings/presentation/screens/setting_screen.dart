@@ -7,6 +7,9 @@ import 'package:real_estate_admin/features/auth/domain/repository/auth_repositor
 import 'package:real_estate_admin/features/auth/presentation/bloc/auth_bloc.dart';
 
 import 'package:real_estate_admin/core/utils/auth_notifier.dart';
+import 'package:real_estate_admin/features/settings/presentation/section/language_selection_sheet.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 class SettingScreen extends StatelessWidget {
   const SettingScreen({super.key});
@@ -35,12 +38,21 @@ class SettingScreen extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Column(
                 children: [
-                  Container(width: double.infinity,
-                  height: 200,
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(20))
-                  ),),
+                  ListTile(
+                    leading: const Icon(Icons.language),
+                    title: Text("Izaberi jezik", style: AppTextStyles.nameText(context)),
+                    trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+                    onTap: () {
+                      showModalBottomSheet(
+                        context: context,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+                        ),
+                        builder: (context) => const LanguageSelectionSheet(),
+                      );
+                    },
+                  ),
+
                   const Spacer(),
                   SizedBox(
                     width: double.infinity,
@@ -59,7 +71,7 @@ class SettingScreen extends StatelessWidget {
                             authRepository.getUser();
                           },
                           child:  Text(
-                            "Logout",
+                            AppLocalizations.of(context)!.logout,
                             style: AppTextStyles.headerText(context).copyWith(color: Colors.white),
                           ),
                         );
