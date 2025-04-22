@@ -45,3 +45,4 @@ app.*.map.json
 /android/app/release
 /lib/generated/
 /pubspec.lock
+/lib/core/di/injection.config.dart
