@@ -8,6 +8,8 @@ import 'package:real_estate_admin/features/admin_panel/presentation/bloc/agent_b
 import 'package:real_estate_admin/features/admin_panel/presentation/bloc/agent_bloc/agent_event.dart';
 import 'package:real_estate_admin/features/admin_panel/presentation/bloc/agent_bloc/agent_state.dart';
 import 'package:real_estate_admin/core/ui/components/search_bar_filter.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 class DetailsScreen extends StatelessWidget {
   const DetailsScreen({super.key});
@@ -40,7 +42,7 @@ class _AgentDetailsContentState extends State<_AgentDetailsContent> {
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
           children: [
             SearchBarFilter(
-              hintText: "Pretraga agenata...",
+              hintText: AppLocalizations.of(context)!.agent_search_hint,
               onChanged: (value) {
                 setState(() {
                   _searchQuery = value.toLowerCase();
@@ -50,7 +52,9 @@ class _AgentDetailsContentState extends State<_AgentDetailsContent> {
                 showModalBottomSheet(
                   context: context,
                   builder: (_) =>
-                      const Center(child: Text("Ovde idu filteri agenata")),
+                      Center(
+                        child: Text(AppLocalizations.of(context)!.agent_filters_placeholder),
+                      ),
                 );
               },
             ),
@@ -79,11 +83,17 @@ class _AgentDetailsContentState extends State<_AgentDetailsContent> {
                         last.contains(query) ||
                         full.contains(query);
                   }).toList();
+
                   return AgentDetailsBody(agents: filteredAgents);
                 } else if (state is AgentError) {
-                  return const Text("ERROR");
+                  return Center(
+                    child: Text(AppLocalizations.of(context)!.error_generic),
+                  );
                 }
-                return const Text("No data available");
+
+                return Center(
+                  child: Text(AppLocalizations.of(context)!.no_data),
+                );
               },
             ),
           ],

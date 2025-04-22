@@ -1,1 +1,17 @@
-{}
+{
+  "@@locale": "en",
+  "settings_title": "Settings",
+  "logout": "Logout",
+  "select_language": "Select Language",
+  "total_revenue": "Total Revenue",
+  "total_agents": "Total Agents",
+  "admin_panel": "Admin Panel",
+  "real_estate": "Real Estates",
+  "tasks": "Tasks",
+  "agent_search_hint": "Search agents...",
+  "agent_filters_placeholder": "Agent filters go here",
+  "error_generic": "An error occurred",
+  "no_data": "No data available",
+  "filter_options": "Filter options here",
+  "real_estate_details": "Real Estate Details"
+}

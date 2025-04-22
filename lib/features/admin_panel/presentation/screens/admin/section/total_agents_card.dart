@@ -4,6 +4,8 @@ import 'package:go_router/go_router.dart';
 import 'package:real_estate_admin/core/ui/app_text_styles.dart';
 import 'package:real_estate_admin/features/admin_panel/data/models/agent_model.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 class TotalAgentsCard extends StatefulWidget {
   final int totalAgents;
@@ -91,7 +93,7 @@ class _TotalAgentsCardState extends State<TotalAgentsCard>
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Total Agents",
+                  AppLocalizations.of(context)!.total_agents,
                   style: AppTextStyles.nameText(context),
                 ),
                 InkWell(
@@ -158,7 +160,7 @@ class _TotalAgentsCardState extends State<TotalAgentsCard>
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        "Last month, 23",
+                        "Last month, 23",   // dodaj lokalizaciju kasnije kada budu pravi podaci
                         style: AppTextStyles.roleText(context),
                       ),
                     ],

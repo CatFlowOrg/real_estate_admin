@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
 import 'package:real_estate_admin/core/ui/app_text_styles.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 class TotalRevenueCard extends StatelessWidget {
   final bool isExpanded;
@@ -35,7 +37,7 @@ class TotalRevenueCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "Total Revenue",
+                AppLocalizations.of(context)!.total_revenue,
                 style: AppTextStyles.nameText(context),
               ),
               InkWell(
