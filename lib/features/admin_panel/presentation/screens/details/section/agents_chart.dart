@@ -24,7 +24,7 @@ class AgentChart extends StatelessWidget {
       ),
       child: Center(
         child: Text(
-          "Chart Placeholder",
+          "---",
           style: AppTextStyles.descText(context),
         )
       ),

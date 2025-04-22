@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:real_estate_admin/core/ui/app_text_styles.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 class AgentDetailsHeader extends StatelessWidget {
   final int totalAgents;
@@ -12,7 +14,7 @@ class AgentDetailsHeader extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "Total Agents",
+          AppLocalizations.of(context)!.total_agents,
           style: AppTextStyles.nameText(context),
         ),
         const SizedBox(height: 8),
