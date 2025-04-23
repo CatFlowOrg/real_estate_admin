@@ -6,6 +6,7 @@ import 'package:real_estate_admin/features/real_estate/presentation/screens/crea
 import 'package:real_estate_admin/features/real_estate/presentation/screens/create_real_estate/bloc/create_real_estate_state.dart';
 import 'package:real_estate_admin/features/real_estate/presentation/screens/create_real_estate/ui/enum_dropdown.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:real_estate_admin/features/real_estate/presentation/screens/create_real_estate/ui/primary_text_form_field.dart';
 
 class DetailsTab extends StatefulWidget {
   const DetailsTab({super.key});
@@ -21,43 +22,60 @@ class _DetailsTabState extends State<DetailsTab> {
   Widget build(BuildContext context) {
     return BlocBuilder<CreateRealEstateBloc, CreateRealEstateState>(
       builder: (context, state) {
-        return Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            children: [
-              TextFormField(
-                initialValue: state.title ?? '',
-                decoration: const InputDecoration(labelText: 'Title'),
-                onChanged: (val) =>
-                    context.read<CreateRealEstateBloc>().add(UpdateRealEstateTitle(val)),
-              ),
-              const SizedBox(height: 16),
-              TextFormField(
-                initialValue: state.description ?? '',
-                decoration: const InputDecoration(labelText: 'Description'),
-                onChanged: (val) =>
-                    context.read<CreateRealEstateBloc>().add(UpdateRealEstateDescription(val)),
-              ),
-              const SizedBox(height: 16),
-
-              EnumDropdown<ListingType>(
-                items: ListingType.values,
-                selectionMode: SelectionMode.multiple,
-                getLabel: (type, context) => type.label(context),
-                getIcon: (type) => type.icon,
-                getTitle: (context) => AppLocalizations.of(context)!.select_language,
-                onSelectionChanged: (selected) {
-                  print((selected as ListingType).id); // 0 ili 1
-                },
-              ),
-
-
-              const SizedBox(height: 16),
-              ElevatedButton(
-                onPressed: () => _showFilterBottomSheet(context),
-                child: const Text("data"),
-              ),
-            ],
+        return SafeArea(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(16),
+            keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+            child: Column(
+              children: [
+                PrimaryTextFormField(
+                  initialValue: '',
+                  label: 'Title',
+                  onChanged: (value) => context
+                      .read<CreateRealEstateBloc>()
+                      .add(UpdateRealEstateTitle(value)),
+                ),
+                const SizedBox(height: 16),
+                PrimaryTextFormField(
+                  initialValue: '',
+                  label: 'Provizija',
+                  onChanged: (value) => context
+                      .read<CreateRealEstateBloc>()
+                      .add(UpdateRealEstateDescription(value)),
+                ),
+                PrimaryTextFormField(
+                  initialValue: '',
+                  label: 'Cijena Nekretnine(EUR)',
+                  onChanged: (value) => context
+                      .read<CreateRealEstateBloc>()
+                      .add(UpdateRealEstateDescription(value)),
+                ),
+                PrimaryTextFormField(
+                  initialValue: '',
+                  label: 'Snizena Cijena(EUR)',
+                  onChanged: (value) => context
+                      .read<CreateRealEstateBloc>()
+                      .add(UpdateRealEstateDescription(value)),
+                ),
+                const SizedBox(height: 16),
+                EnumDropdown<ListingType>(
+                  items: ListingType.values,
+                  selectionMode: SelectionMode.single,
+                  getLabel: (type, context) => type.label(context),
+                  getIcon: (type) => type.icon,
+                  getTitle: (context) =>
+                      AppLocalizations.of(context)!.select_language,
+                  onSelectionChanged: (selected) {
+                    print((selected as ListingType).id); // 0 ili 1
+                  },
+                ),
+                const SizedBox(height: 16),
+                ElevatedButton(
+                  onPressed: () => _showFilterBottomSheet(context),
+                  child: const Text("data"),
+                ),
+              ],
+            ),
           ),
         );
       },
@@ -75,7 +93,6 @@ void _showFilterBottomSheet(BuildContext context) {
   );
 }
 
-
 class FilterBottomSheet extends StatefulWidget {
   const FilterBottomSheet({super.key});
 
@@ -87,9 +104,14 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
   Set<int> selectedIds = {};
 
   final List<_FilterOption> options = [
-    _FilterOption(id: 1, assetPath: 'assets/img/sync/cro/njuskalo.png', label: "Njuskalo"),
-    _FilterOption(id: 2, assetPath: 'assets/img/sync/cro/indomio.png', label: "Indomio"),
-    _FilterOption(id: 3, assetPath: 'assets/img/sync/cro/njuskalo.png', label: "Vila"),
+    _FilterOption(
+        id: 1,
+        assetPath: 'assets/img/sync/cro/njuskalo.png',
+        label: "Njuskalo"),
+    _FilterOption(
+        id: 2, assetPath: 'assets/img/sync/cro/indomio.png', label: "Indomio"),
+    _FilterOption(
+        id: 3, assetPath: 'assets/img/sync/cro/njuskalo.png', label: "Vila"),
   ];
 
   @override
@@ -134,7 +156,6 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
     );
   }
 }
-
 
 class _FilterOption {
   final int id;

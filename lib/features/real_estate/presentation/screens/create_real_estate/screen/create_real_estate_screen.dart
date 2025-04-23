@@ -49,7 +49,7 @@ class _CreateRealEstateScreenState extends State<CreateRealEstateScreen> {
         ),
       ],
       child: Scaffold(
-        appBar: AppBar(title: const Text("Create Real Estate")),
+        backgroundColor: Colors.white,
         body: BlocConsumer<CreateRealEstateBloc, CreateRealEstateState>(
           listener: (context, state) {
             _pageController.animateToPage(
@@ -62,48 +62,50 @@ class _CreateRealEstateScreenState extends State<CreateRealEstateScreen> {
             final currentStep = state.currentStep;
             final isLastStep = currentStep == stepContents.length - 1;
 
-            return Stack(
-              children: [
-                Column(
-                  children: [
-                    LinearProgressIndicator(
-                      value: (currentStep + 1) / stepContents.length,
-                      backgroundColor: Colors.grey.shade300,
-                      valueColor: const AlwaysStoppedAnimation<Color>(Colors.green),
-                    ),
-                    Expanded(
-                      child: PageView.builder(
-                        controller: _pageController,
-                        itemCount: stepContents.length,
-                        physics: const ClampingScrollPhysics(),
-                        onPageChanged: (index) {
-                          context.read<CreateRealEstateBloc>().add(GoToStep(index));
-                        },
-                        itemBuilder: (context, index) => stepContents[index],
+            return SafeArea(
+              child: Stack(
+                children: [
+                  Column(
+                    children: [
+                      LinearProgressIndicator(
+                        value: (currentStep + 1) / stepContents.length,
+                        backgroundColor: Colors.grey.shade300,
+                        valueColor: const AlwaysStoppedAnimation<Color>(Colors.green),
                       ),
-                    ),
-                  ],
-                ),
-                Positioned(
-                  bottom: 16,
-                  right: 16,
-                  child: ElevatedButton.icon(
-                    onPressed: () {
-                      if (!isLastStep) {
-                        context.read<CreateRealEstateBloc>().add(GoToStep(currentStep + 1));
-                      } else {
-                        final state = context.read<CreateRealEstateBloc>().state;
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text("Submitting ${state.title}...")),
-                        );
-                        // pozovi submit handler ovde
-                      }
-                    },
-                    icon: Icon(isLastStep ? Icons.check : Icons.arrow_forward),
-                    label: Text(isLastStep ? "Submit" : "Next"),
+                      Expanded(
+                        child: PageView.builder(
+                          controller: _pageController,
+                          itemCount: stepContents.length,
+                          physics: const ClampingScrollPhysics(),
+                          onPageChanged: (index) {
+                            context.read<CreateRealEstateBloc>().add(GoToStep(index));
+                          },
+                          itemBuilder: (context, index) => stepContents[index],
+                        ),
+                      ),
+                    ],
                   ),
-                )
-              ],
+                  Positioned(
+                    bottom: 16,
+                    right: 16,
+                    child: ElevatedButton.icon(
+                      onPressed: () {
+                        if (!isLastStep) {
+                          context.read<CreateRealEstateBloc>().add(GoToStep(currentStep + 1));
+                        } else {
+                          final state = context.read<CreateRealEstateBloc>().state;
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text("Submitting ${state.title}...")),
+                          );
+                          // pozovi submit handler ovde
+                        }
+                      },
+                      icon: Icon(isLastStep ? Icons.check : Icons.arrow_forward),
+                      label: Text(isLastStep ? "Submit" : "Next"),
+                    ),
+                  )
+                ],
+              ),
             );
           },
         ),

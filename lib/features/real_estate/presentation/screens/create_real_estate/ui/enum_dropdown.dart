@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:real_estate_admin/core/theme/app_colors.dart';
 
 enum SelectionMode { single, multiple }
 
@@ -67,7 +68,7 @@ class _EnumDropdownState<T extends Enum> extends State<EnumDropdown<T>> {
               borderRadius: BorderRadius.circular(16),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.1),
+                  color: Colors.black.withValues(alpha: 0.1),
                   blurRadius: 6,
                   offset: const Offset(0, 2),
                 ),
@@ -100,8 +101,8 @@ class _EnumDropdownState<T extends Enum> extends State<EnumDropdown<T>> {
                         child: Stack(
                           alignment: Alignment.center,
                           children: [
-                            const Icon(Icons.circle,
-                                color: Colors.red, size: 20),
+                             const Icon(Icons.circle,
+                                color: AppColors.primary, size: 20),
                             Text(
                               '$count',
                               style: const TextStyle(
