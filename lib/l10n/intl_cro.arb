@@ -1,0 +1,17 @@
+{
+  "@@locale": "hr",
+  "settings_title": "Postavke",
+  "logout": "Odjavi se",
+  "select_language": "Izaberi jezik",
+  "total_revenue": "Ukupni dohodak",
+  "total_agents": "Broj agenata",
+  "admin_panel": "Administracija",
+  "real_estate": "Nekretnine",
+  "tasks": "Zadaci",
+  "agent_search_hint": "Pretraga agenata...",
+  "agent_filters_placeholder": "Ovdje idu filteri agenata",
+  "error_generic": "Pogreška",
+  "no_data": "Nema dostupnih podataka",
+  "filter_options": "Opcije filtera ovdje",
+  "real_estate_details": "Detalji o nekretnini"
+}

@@ -1,26 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:real_estate_admin/core/di/injection.dart';
 import 'package:real_estate_admin/features/real_estate/presentation/screens/create_real_estate/bloc/create_real_estate_bloc.dart';
-import 'package:real_estate_admin/features/real_estate/presentation/screens/create_real_estate/tabs/hashtag_tab.dart';
-
-
-
-class DetailsTab extends StatelessWidget {
-  const DetailsTab({super.key});
-  @override
-  Widget build(BuildContext context) => const Center(child: Text("Details form here"));
-}
+import 'package:real_estate_admin/features/real_estate/presentation/screens/create_real_estate/bloc/create_real_estate_event.dart';
+import 'package:real_estate_admin/features/real_estate/presentation/screens/create_real_estate/bloc/create_real_estate_state.dart';
+import 'package:real_estate_admin/features/real_estate/presentation/screens/create_real_estate/tabs/details/presentation/screen/details_tab.dart';
+import 'package:real_estate_admin/features/real_estate/presentation/screens/create_real_estate/tabs/hashtag/presentation/cubit/hashtag_cubit.dart';
+import 'package:real_estate_admin/features/real_estate/presentation/screens/create_real_estate/tabs/hashtag/presentation/screen/hashtag_tab.dart';
 
 class FeaturesTab extends StatelessWidget {
   const FeaturesTab({super.key});
   @override
-  Widget build(BuildContext context) => const Center(child: Text("Features form here"));
+  Widget build(BuildContext context) => const Center(child: Text("Features tab here"));
 }
 
 class ExtraTab extends StatelessWidget {
   const ExtraTab({super.key});
   @override
-  Widget build(BuildContext context) => const Center(child: Text("Extra form here"));
+  Widget build(BuildContext context) => const Center(child: Text("Extras tab here"));
 }
 
 class CreateRealEstateScreen extends StatefulWidget {
@@ -42,8 +39,15 @@ class _CreateRealEstateScreenState extends State<CreateRealEstateScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => CreateRealEstateBloc(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<CreateRealEstateBloc>(
+          create: (_) => CreateRealEstateBloc(),
+        ),
+        BlocProvider<HashtagCubit>(
+          create: (_) => getIt<HashtagCubit>()..getHashtags(),
+        ),
+      ],
       child: Scaffold(
         appBar: AppBar(title: const Text("Create Real Estate")),
         body: BlocConsumer<CreateRealEstateBloc, CreateRealEstateState>(
@@ -62,14 +66,11 @@ class _CreateRealEstateScreenState extends State<CreateRealEstateScreen> {
               children: [
                 Column(
                   children: [
-                    // ✅ Progress bar
                     LinearProgressIndicator(
                       value: (currentStep + 1) / stepContents.length,
                       backgroundColor: Colors.grey.shade300,
                       valueColor: const AlwaysStoppedAnimation<Color>(Colors.green),
                     ),
-
-                    // ✅ PageView sa swipe-om
                     Expanded(
                       child: PageView.builder(
                         controller: _pageController,
@@ -83,8 +84,6 @@ class _CreateRealEstateScreenState extends State<CreateRealEstateScreen> {
                     ),
                   ],
                 ),
-
-                // ✅ Dugme "Next" / "Submit"
                 Positioned(
                   bottom: 16,
                   right: 16,
@@ -93,21 +92,17 @@ class _CreateRealEstateScreenState extends State<CreateRealEstateScreen> {
                       if (!isLastStep) {
                         context.read<CreateRealEstateBloc>().add(GoToStep(currentStep + 1));
                       } else {
-                        // Submit handler
+                        final state = context.read<CreateRealEstateBloc>().state;
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text("Submitting...")),
+                          SnackBar(content: Text("Submitting ${state.title}...")),
                         );
+                        // pozovi submit handler ovde
                       }
                     },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.green,
-                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-                    ),
                     icon: Icon(isLastStep ? Icons.check : Icons.arrow_forward),
                     label: Text(isLastStep ? "Submit" : "Next"),
                   ),
-                ),
+                )
               ],
             );
           },
@@ -115,4 +110,5 @@ class _CreateRealEstateScreenState extends State<CreateRealEstateScreen> {
       ),
     );
   }
+
 }
