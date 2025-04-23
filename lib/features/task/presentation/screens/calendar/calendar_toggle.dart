@@ -34,7 +34,9 @@ class CalendarToggle extends StatelessWidget {
             side: BorderSide(color: AppColors.bgButton),
           ),
         ),
-        const SizedBox(width: 8),
+        SizedBox(
+          width: MediaQuery.of(context).size.width * 0.02
+        ),
         ChoiceChip(
           label: const Text('Month'),
           selected: currentView == CalendarView.month,

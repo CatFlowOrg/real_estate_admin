@@ -92,9 +92,13 @@ class _TotalAgentsCardState extends State<TotalAgentsCard>
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  AppLocalizations.of(context)!.total_agents,
-                  style: AppTextStyles.nameText(context),
+                Expanded(
+                  child: Text(
+                    AppLocalizations.of(context)!.total_agents,
+                    style: AppTextStyles.nameText(context),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                  ),
                 ),
                 InkWell(
                   onTap: widget.onToggleExpanded,

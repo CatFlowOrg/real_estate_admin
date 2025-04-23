@@ -19,8 +19,30 @@ class MonthCalendar extends StatelessWidget {
   bool _isSameDay(DateTime a, DateTime b) =>
       a.year == b.year && a.month == b.month && a.day == b.day;
 
+  Widget _buildEdgeDate(BuildContext context, DateTime day) {
+    return Container(
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+        color: AppColors.bgButton,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      padding: const EdgeInsets.all(6),
+      margin: const EdgeInsets.symmetric(vertical: 5.0),
+      child: Text(
+        '${day.day}',
+        style: const TextStyle(
+          color: Colors.white,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final cellHeight = screenHeight * 0.030;
+
     return TableCalendar(
       rowHeight: 48,
       firstDay: DateTime.utc(2020, 1, 1),
@@ -33,7 +55,7 @@ class MonthCalendar extends StatelessWidget {
       rangeEndDay: rangeEnd,
       rangeSelectionMode: RangeSelectionMode.toggledOff,
       onDaySelected: (day, _) => onDaySelected(day),
-      onRangeSelected: (_, __, ___) {}, // disable default range handling
+      onRangeSelected: (_, __, ___) {},
 
       headerStyle: const HeaderStyle(
         formatButtonVisible: false,
@@ -49,88 +71,34 @@ class MonthCalendar extends StatelessWidget {
       ),
 
       daysOfWeekStyle: const DaysOfWeekStyle(
-        weekdayStyle: TextStyle(
-          fontWeight: FontWeight.bold,
-          color: Colors.black,
-        ),
-        weekendStyle: TextStyle(
-          fontWeight: FontWeight.bold,
-          color: Colors.black,
-        ),
+        weekdayStyle: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+        weekendStyle: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
       ),
 
       calendarBuilders: CalendarBuilders(
         withinRangeBuilder: (context, day, _) {
-          return Stack(
-            children: [
-              Positioned.fill(
-                child: Container(
-                  decoration: const BoxDecoration(
-                    color: Color.fromRGBO(76, 175, 80, 0.25),
-                    borderRadius: BorderRadius.zero,
-                  ),
+          return Align(
+            alignment: Alignment.center,
+            child: Container(
+              height: cellHeight,
+              width: double.infinity,
+              decoration: const BoxDecoration(
+                color: Color.fromRGBO(76, 175, 80, 0.2),
+              ),
+              alignment: Alignment.center,
+              child: Text(
+                '${day.day}',
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.normal,
                 ),
               ),
-              Center(
-                child: Text(
-                  '${day.day}',
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.normal,
-                  ),
-                ),
-              ),
-            ],
-          );
-        },
-        rangeStartBuilder: (context, day, _) {
-          return Container(
-            alignment: Alignment.center,
-            decoration: const BoxDecoration(
-              color: AppColors.bgButton,
-              shape: BoxShape.circle,
-            ),
-            child: Text(
-              '${day.day}',
-              style: const TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              ),
             ),
           );
         },
-        rangeEndBuilder: (context, day, _) {
-          return Container(
-            alignment: Alignment.center,
-            decoration: const BoxDecoration(
-              color: AppColors.bgButton,
-              shape: BoxShape.circle,
-            ),
-            child: Text(
-              '${day.day}',
-              style: const TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          );
-        },
-        selectedBuilder: (context, day, _) {
-          return Container(
-            alignment: Alignment.center,
-            decoration: const BoxDecoration(
-              color: AppColors.bgButton,
-              shape: BoxShape.circle,
-            ),
-            child: Text(
-              '${day.day}',
-              style: const TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          );
-        },
+        rangeStartBuilder: (context, day, _) => _buildEdgeDate(context, day),
+        rangeEndBuilder: (context, day, _) => _buildEdgeDate(context, day),
+        selectedBuilder: (context, day, _) => _buildEdgeDate(context, day),
       ),
     );
   }

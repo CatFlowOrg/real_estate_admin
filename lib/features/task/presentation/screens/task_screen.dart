@@ -45,9 +45,11 @@ class _TaskScreenState extends State<TaskScreen> {
           _rangeEnd = selectedDay;
           _selectedDay = selectedDay;
 
-          final formatter = DateFormat('yyyy-MM-dd');
-          debugPrint(
-              'Izabran opseg: ${formatter.format(_rangeStart!)} - ${formatter.format(_rangeEnd!)}');
+          if (kDebugMode) {
+            final formatter = DateFormat('yyyy-MM-dd');
+            debugPrint(
+                'Izabran opseg: ${formatter.format(_rangeStart!)} - ${formatter.format(_rangeEnd!)}');
+          }
         }
       }
     });
@@ -85,9 +87,48 @@ class _TaskScreenState extends State<TaskScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Row(
                   children: [
-                    Text(
-                      _monthLabel,
-                      style: AppTextStyles.titleText(context),
+                    GestureDetector(
+                      onTap: () async {
+                        final picked = await showDatePicker(
+                          context: context,
+                          initialDate: _selectedDay,
+                          firstDate: DateTime(2020),
+                          lastDate: DateTime(2030),
+                          builder: (context, child) {
+                            return Theme(
+                              data: Theme.of(context).copyWith(
+                                colorScheme: const ColorScheme.light(
+                                  primary: AppColors.bgButton,
+                                  onPrimary: Colors.white,
+                                  onSurface: Colors.black,
+                                ),
+                              ),
+                              child: child!,
+                            );
+                          },
+                        );
+
+                        if (picked != null) {
+                          setState(() {
+                            _selectedDay = picked;
+                            _weekReferenceDay = picked;
+                            _rangeStart = picked;
+                            _rangeEnd = null;
+                          });
+
+                          if (kDebugMode) {
+                            final formatter = DateFormat('yyyy-MM-dd');
+                            debugPrint(
+                                'Izabran datum za week label: ${formatter.format(picked)}');
+                          }
+                        }
+                      },
+                      child: Text(
+                        _monthLabel,
+                        style: AppTextStyles.titleText(context).copyWith(
+                          decoration: TextDecoration.underline,
+                        ),
+                      ),
                     ),
                     const Spacer(),
                     CalendarToggle(
