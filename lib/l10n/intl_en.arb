@@ -13,5 +13,7 @@
   "error_generic": "An error occurred",
   "no_data": "No data available",
   "filter_options": "Filter options here",
-  "real_estate_details": "Real Estate Details"
+  "real_estate_details": "Real Estate Details",
+  "selling": "Selling",
+  "renting": "Renting"
 }

@@ -13,5 +13,7 @@
   "error_generic": "Pogreška",
   "no_data": "Nema dostupnih podataka",
   "filter_options": "Opcije filtera ovdje",
-  "real_estate_details": "Detalji o nekretnini"
+  "real_estate_details": "Detalji o nekretnini",
+  "selling": "Prodaja",
+  "renting": "Najam"
 }

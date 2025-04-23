@@ -1,11 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:real_estate_admin/features/real_estate/data/types/listing_type.dart';
 import 'package:real_estate_admin/features/real_estate/presentation/screens/create_real_estate/bloc/create_real_estate_bloc.dart';
 import 'package:real_estate_admin/features/real_estate/presentation/screens/create_real_estate/bloc/create_real_estate_event.dart';
 import 'package:real_estate_admin/features/real_estate/presentation/screens/create_real_estate/bloc/create_real_estate_state.dart';
+import 'package:real_estate_admin/features/real_estate/presentation/screens/create_real_estate/ui/enum_dropdown.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class DetailsTab extends StatelessWidget {
+class DetailsTab extends StatefulWidget {
   const DetailsTab({super.key});
+
+  @override
+  State<DetailsTab> createState() => _DetailsTabState();
+}
+
+class _DetailsTabState extends State<DetailsTab> {
+  ListingType? selectedListingType;
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<CreateRealEstateBloc, CreateRealEstateState>(
@@ -17,16 +28,35 @@ class DetailsTab extends StatelessWidget {
               TextFormField(
                 initialValue: state.title ?? '',
                 decoration: const InputDecoration(labelText: 'Title'),
-                onChanged: (val) => context.read<CreateRealEstateBloc>().add(UpdateRealEstateTitle(val)),
+                onChanged: (val) =>
+                    context.read<CreateRealEstateBloc>().add(UpdateRealEstateTitle(val)),
               ),
               const SizedBox(height: 16),
               TextFormField(
                 initialValue: state.description ?? '',
                 decoration: const InputDecoration(labelText: 'Description'),
-                onChanged: (val) => context.read<CreateRealEstateBloc>().add(UpdateRealEstateDescription(val)),
+                onChanged: (val) =>
+                    context.read<CreateRealEstateBloc>().add(UpdateRealEstateDescription(val)),
               ),
-              
-              ElevatedButton(onPressed:()=>_showFilterBottomSheet(context) , child: const Text("data"))
+              const SizedBox(height: 16),
+
+              EnumDropdown<ListingType>(
+                items: ListingType.values,
+                selectionMode: SelectionMode.multiple,
+                getLabel: (type, context) => type.label(context),
+                getIcon: (type) => type.icon,
+                getTitle: (context) => AppLocalizations.of(context)!.select_language,
+                onSelectionChanged: (selected) {
+                  print((selected as ListingType).id); // 0 ili 1
+                },
+              ),
+
+
+              const SizedBox(height: 16),
+              ElevatedButton(
+                onPressed: () => _showFilterBottomSheet(context),
+                child: const Text("data"),
+              ),
             ],
           ),
         );
