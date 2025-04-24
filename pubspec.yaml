@@ -67,6 +67,8 @@ flutter:
 
   assets:
     - assets/img/
+    - assets/img/sync/cro/
+
 flutter_intl:
   enabled: true
 
