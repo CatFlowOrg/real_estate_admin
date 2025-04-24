@@ -27,6 +27,9 @@ class AppColors {
   static const Color success = Color(0xFF4CAF50);
   static const Color warning = Color(0xFFFFC107);
 
+  static const Color bgButton = Color(0xFF4E9C83);
+
+
   // Backgrounds
   static const Color backgroundLight = Color(0xFFF5FBF6);
   static const Color backgroundDark = Color(0xFF0F1512);
