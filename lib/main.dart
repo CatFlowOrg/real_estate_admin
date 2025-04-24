@@ -32,7 +32,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final brightness = View.of(context).platformDispatcher.platformBrightness;
     final textTheme = createTextTheme(context, "Roboto", "Inter");
     final MaterialTheme theme = MaterialTheme(textTheme);
 
@@ -53,7 +52,7 @@ class MyApp extends StatelessWidget {
               GlobalWidgetsLocalizations.delegate,
               GlobalCupertinoLocalizations.delegate,
             ],
-            theme: brightness == Brightness.light ? theme.light() : theme.dark(),
+            theme: theme.light(),
             routerConfig: createRouter(authNotifier),
           );
         },

@@ -32,7 +32,7 @@ class SettingScreen extends StatelessWidget {
           }
         },
         child: Scaffold(
-          backgroundColor: Colors.transparent,
+          backgroundColor: Colors.white,
           body: SafeArea(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -40,7 +40,10 @@ class SettingScreen extends StatelessWidget {
                 children: [
                   ListTile(
                     leading: const Icon(Icons.language),
-                    title: Text("Izaberi jezik", style: AppTextStyles.nameText(context)),
+                    title: Text(
+                        AppLocalizations.of(context)!.select_language,
+                        style: AppTextStyles.nameText(context)
+                    ),
                     trailing: const Icon(Icons.arrow_forward_ios, size: 16),
                     onTap: () {
                       showModalBottomSheet(

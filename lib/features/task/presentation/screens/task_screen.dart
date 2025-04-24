@@ -57,133 +57,112 @@ class _TaskScreenState extends State<TaskScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Theme(
-      data: Theme.of(context).copyWith(
-        brightness: Brightness.light,
-        scaffoldBackgroundColor: Colors.white,
-        colorScheme: Theme.of(context).colorScheme.copyWith(
-              brightness: Brightness.light,
-              surface: Colors.white,
-              onSurface: Colors.black,
-              primary: AppColors.bgButton,
-              onPrimary: Colors.white,
-            ),
-        textTheme: Theme.of(context).textTheme.apply(
-              bodyColor: Colors.black,
-              displayColor: Colors.black,
-            ),
-        chipTheme: Theme.of(context).chipTheme.copyWith(
-              backgroundColor: Colors.transparent,
-              selectedColor: AppColors.bgButton,
-              labelStyle: const TextStyle(color: Colors.white),
-            ),
-      ),
-      child: Scaffold(
-        body: SafeArea(
-          child: Column(
-            children: [
-              const SizedBox(height: 16),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Row(
-                  children: [
-                    GestureDetector(
-                      onTap: () async {
-                        final picked = await showDatePicker(
-                          context: context,
-                          initialDate: _selectedDay,
-                          firstDate: DateTime(2020),
-                          lastDate: DateTime(2030),
-                          builder: (context, child) {
-                            return Theme(
-                              data: Theme.of(context).copyWith(
-                                colorScheme: const ColorScheme.light(
-                                  primary: AppColors.bgButton,
-                                  onPrimary: Colors.white,
-                                  onSurface: Colors.black,
-                                ),
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: SafeArea(
+        child: Column(
+          children: [
+            const SizedBox(height: 16),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Row(
+                children: [
+                  GestureDetector(
+                    onTap: () async {
+                      final picked = await showDatePicker(
+                        context: context,
+                        initialDate: _selectedDay,
+                        firstDate: DateTime(2020),
+                        lastDate: DateTime(2030),
+                        builder: (context, child) {
+                          return Theme(
+                            data: Theme.of(context).copyWith(
+                              colorScheme: const ColorScheme.light(
+                                primary: AppColors.bgButton,
+                                onPrimary: Colors.white,
+                                onSurface: Colors.black,
                               ),
-                              child: child!,
-                            );
-                          },
-                        );
+                            ),
+                            child: child!,
+                          );
+                        },
+                      );
 
-                        if (picked != null) {
-                          setState(() {
-                            _selectedDay = picked;
-                            _weekReferenceDay = picked;
-                            _rangeStart = picked;
-                            _rangeEnd = null;
-                          });
+                      if (picked != null) {
+                        setState(() {
+                          _selectedDay = picked;
+                          _weekReferenceDay = picked;
+                          _rangeStart = picked;
+                          _rangeEnd = null;
+                        });
 
-                          if (kDebugMode) {
-                            final formatter = DateFormat('yyyy-MM-dd');
-                            debugPrint(
-                                'Izabran datum za week label: ${formatter.format(picked)}');
-                          }
+                        if (kDebugMode) {
+                          final formatter = DateFormat('yyyy-MM-dd');
+                          debugPrint(
+                              'Izabran datum za week label: ${formatter.format(picked)}');
                         }
+                      }
+                    },
+                    child: Text(
+                      _monthLabel,
+                      style: AppTextStyles.titleText(context).copyWith(
+                        decoration: TextDecoration.underline,
+                      ),
+                    ),
+                  ),
+                  const Spacer(),
+                  CalendarToggle(
+                    currentView: _view,
+                    onViewChanged: (v) => setState(() {
+                      _view = v;
+                      final now = DateTime.now();
+                      _selectedDay = now;
+                      _weekReferenceDay = now;
+                      _rangeStart = null;
+                      _rangeEnd = null;
+                    }),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 16),
+            Expanded(
+              child: _view == CalendarView.week
+                  ? WeekCalendar(
+                      selectedDay: _weekReferenceDay,
+                      onDayTap: (d) {
+                        setState(() {
+                          _weekReferenceDay = d;
+                          _rangeStart = null;
+                          _rangeEnd = null;
+                        });
                       },
-                      child: Text(
-                        _monthLabel,
-                        style: AppTextStyles.titleText(context).copyWith(
-                          decoration: TextDecoration.underline,
-                        ),
-                      ),
+                      onWeekChanged: (newDay) {
+                        setState(() {
+                          _weekReferenceDay = newDay;
+                          _selectedDay = _weekReferenceDay;
+                          if (kDebugMode) {
+                            print(_selectedDay);
+                          }
+                        });
+                      },
+                    )
+                  : MonthCalendar(
+                      focusedDay: _selectedDay,
+                      rangeStart: _rangeStart,
+                      rangeEnd: _rangeEnd,
+                      onDaySelected: _onMonthDaySelected,
                     ),
-                    const Spacer(),
-                    CalendarToggle(
-                      currentView: _view,
-                      onViewChanged: (v) => setState(() {
-                        _view = v;
-                        final now = DateTime.now();
-                        _selectedDay = now;
-                        _weekReferenceDay = now;
-                        _rangeStart = null;
-                        _rangeEnd = null;
-                      }),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 16),
-              Expanded(
-                child: _view == CalendarView.week
-                    ? WeekCalendar(
-                        selectedDay: _weekReferenceDay,
-                        onDayTap: (d) {
-                          setState(() {
-                            _weekReferenceDay = d;
-                            _rangeStart = null;
-                            _rangeEnd = null;
-                          });
-                        },
-                        onWeekChanged: (newDay) {
-                          setState(() {
-                            _weekReferenceDay = newDay;
-                            _selectedDay = _weekReferenceDay;
-                            if (kDebugMode) {
-                              print(_selectedDay);
-                            }
-                          });
-                        },
-                      )
-                    : MonthCalendar(
-                        focusedDay: _selectedDay,
-                        rangeStart: _rangeStart,
-                        rangeEnd: _rangeEnd,
-                        onDaySelected: _onMonthDaySelected,
-                      ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: AppColors.bgButton,
-          onPressed: () {
-            /* plus dugme */
-          },
-          child: const Icon(Icons.add, color: Colors.white),
-        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: AppColors.bgButton,
+        onPressed: () {
+          /* plus dugme */
+        },
+        child: const Icon(Icons.add, color: Colors.white),
       ),
     );
   }
