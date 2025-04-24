@@ -21,7 +21,13 @@ class LanguageSelectionSheet extends StatelessWidget {
             title: const Text("Srpski"),
             onTap: () {
               context.read<LocaleCubit>().changeLocale(const Locale('sr'));
-              Navigator.pop(context);
+            },
+          ),
+          ListTile(
+            leading: const Text("🇭🇷"),
+            title: const Text("Hrvatski"),
+            onTap: () {
+              context.read<LocaleCubit>().changeLocale(const Locale('hr'));
             },
           ),
           ListTile(
@@ -29,7 +35,6 @@ class LanguageSelectionSheet extends StatelessWidget {
             title: const Text("English"),
             onTap: () {
               context.read<LocaleCubit>().changeLocale(const Locale('en'));
-              Navigator.pop(context);
             },
           ),
         ],

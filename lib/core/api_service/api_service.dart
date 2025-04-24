@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:real_estate_admin/features/auth/data/models/token_response.dart';
 import 'package:real_estate_admin/features/auth/data/models/user_response.dart';
+import 'package:real_estate_admin/features/real_estate/data/models/hashtag.dart';
 import 'package:real_estate_admin/features/real_estate/data/models/real_estate_details_response.dart';
 import 'package:real_estate_admin/features/real_estate/data/models/real_estate_response.dart';
 import 'package:retrofit/retrofit.dart';
@@ -39,4 +40,6 @@ abstract class AuthApiService {
       @Query("Language") int language,
       );
 
+  @GET('/Hashtags')
+  Future<HttpResponse<List<Hashtag>>> getHashtags(@Query('Language') int language);
 }
