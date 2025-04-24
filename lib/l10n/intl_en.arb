@@ -15,5 +15,15 @@
   "filter_options": "Filter options here",
   "real_estate_details": "Real Estate Details",
   "selling": "Selling",
-  "renting": "Renting"
+  "renting": "Renting",
+  "noType": "No type",
+  "house": "House",
+  "flat": "Flat",
+  "garage": "Garage",
+  "land": "Land",
+  "office": "Office",
+  "apartment": "Apartment",
+  "types_of_listing": "Types of listing",
+  "provisionHidden": "Hidden"
+
 }

@@ -15,5 +15,15 @@
   "filter_options": "Opcije filtera ovde",
   "real_estate_details": "Detalji o nekretnini",
   "selling": "Prodaja",
-  "renting": "Iznajmljivanje"
+  "renting": "Iznajmljivanje",
+  "noType": "Bez tipa",
+  "house": "Kuća",
+  "flat": "Stan",
+  "garage": "Garaža",
+  "land": "Zemljište",
+  "office": "Poslovni prostor",
+  "apartment": "Apartman",
+  "types_of_listing": "Vrste Oglasa",
+  "provisionHidden": "Provizija sakrivena"
+
 }

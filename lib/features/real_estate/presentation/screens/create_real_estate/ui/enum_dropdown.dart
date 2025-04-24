@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:real_estate_admin/core/theme/app_colors.dart';
+import 'package:real_estate_admin/core/ui/app_text_styles.dart';
 
 enum SelectionMode { single, multiple }
 
@@ -7,7 +8,8 @@ class EnumDropdown<T extends Enum> extends StatefulWidget {
   final List<T> items;
   final SelectionMode selectionMode;
   final String Function(T, BuildContext) getLabel;
-  final IconData Function(T) getIcon;
+  final IconData? Function(T)? getIcon;
+  final String title;
   final String Function(BuildContext) getTitle;
   final void Function(dynamic selected) onSelectionChanged;
 
@@ -16,7 +18,8 @@ class EnumDropdown<T extends Enum> extends StatefulWidget {
     required this.items,
     required this.selectionMode,
     required this.getLabel,
-    required this.getIcon,
+    this.getIcon,
+    required this.title,
     required this.getTitle,
     required this.onSelectionChanged,
   });
@@ -56,9 +59,13 @@ class _EnumDropdownState<T extends Enum> extends State<EnumDropdown<T>> {
   @override
   Widget build(BuildContext context) {
     final count = selectedItems.length;
+    final selectedItem = selected ?? widget.items.first;
 
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        Text(widget.title, style: AppTextStyles.subtitleText(context)),
+        const SizedBox(height: 12),
         GestureDetector(
           onTap: toggleExpanded,
           child: Container(
@@ -68,7 +75,7 @@ class _EnumDropdownState<T extends Enum> extends State<EnumDropdown<T>> {
               borderRadius: BorderRadius.circular(16),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withValues(alpha: 0.1),
+                  color: Colors.black.withOpacity(0.1),
                   blurRadius: 6,
                   offset: const Offset(0, 2),
                 ),
@@ -79,18 +86,17 @@ class _EnumDropdownState<T extends Enum> extends State<EnumDropdown<T>> {
               children: [
                 Row(
                   children: [
-                    Icon(
-                      widget.selectionMode == SelectionMode.single
-                          ? widget.getIcon(
-                          selected ?? widget.items.first)
-                          : Icons.filter_list,
-                    ),
+                    if (widget.selectionMode == SelectionMode.single)
+                      if (widget.getIcon?.call(selectedItem) != null)
+                        Icon(widget.getIcon!.call(selectedItem)),
+                    if (widget.selectionMode == SelectionMode.multiple)
+                      const Icon(Icons.filter_list),
                     const SizedBox(width: 8),
                     Text(
                       widget.selectionMode == SelectionMode.single
-                          ? selected != null
+                          ? (selected != null
                           ? widget.getLabel(selected!, context)
-                          : widget.getTitle(context)
+                          : widget.getTitle(context))
                           : widget.getTitle(context),
                       style: const TextStyle(fontSize: 16),
                     ),
@@ -101,7 +107,7 @@ class _EnumDropdownState<T extends Enum> extends State<EnumDropdown<T>> {
                         child: Stack(
                           alignment: Alignment.center,
                           children: [
-                             const Icon(Icons.circle,
+                            const Icon(Icons.circle,
                                 color: AppColors.primary, size: 20),
                             Text(
                               '$count',
@@ -146,19 +152,21 @@ class _EnumDropdownState<T extends Enum> extends State<EnumDropdown<T>> {
             ),
             child: Column(
               children: widget.items.map((item) {
-                final isSelected =
-                widget.selectionMode == SelectionMode.single
+                final isSelected = widget.selectionMode == SelectionMode.single
                     ? selected == item
                     : selectedItems.contains(item);
 
                 return ListTile(
-                  leading: Icon(widget.getIcon(item),
-                      color: isSelected ? Colors.red : Colors.grey),
+                  leading: widget.getIcon?.call(item) != null
+                      ? Icon(
+                    widget.getIcon!.call(item),
+                    color: isSelected ? Colors.red : Colors.grey,
+                  )
+                      : null,
                   title: Text(
                     widget.getLabel(item, context),
                     style: TextStyle(
-                      color:
-                      isSelected ? Colors.red : Colors.black,
+                      color: isSelected ? Colors.red : Colors.black,
                       fontWeight: isSelected
                           ? FontWeight.bold
                           : FontWeight.normal,
@@ -170,13 +178,10 @@ class _EnumDropdownState<T extends Enum> extends State<EnumDropdown<T>> {
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       border: Border.all(
-                        color:
-                        isSelected ? Colors.red : Colors.grey,
+                        color: isSelected ? Colors.red : Colors.grey,
                         width: 2,
                       ),
-                      color: isSelected
-                          ? Colors.red
-                          : Colors.transparent,
+                      color: isSelected ? Colors.red : Colors.transparent,
                     ),
                     child: isSelected
                         ? const Icon(Icons.check,

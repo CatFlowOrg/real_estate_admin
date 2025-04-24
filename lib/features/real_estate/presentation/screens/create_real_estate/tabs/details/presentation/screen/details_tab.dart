@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:real_estate_admin/features/real_estate/data/types/listing_type.dart';
+import 'package:real_estate_admin/features/real_estate/data/types/provision_percent.dart';
+import 'package:real_estate_admin/features/real_estate/data/types/real_estate_type.dart';
 import 'package:real_estate_admin/features/real_estate/presentation/screens/create_real_estate/bloc/create_real_estate_bloc.dart';
 import 'package:real_estate_admin/features/real_estate/presentation/screens/create_real_estate/bloc/create_real_estate_event.dart';
 import 'package:real_estate_admin/features/real_estate/presentation/screens/create_real_estate/bloc/create_real_estate_state.dart';
@@ -28,14 +30,41 @@ class _DetailsTabState extends State<DetailsTab> {
             keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
             child: Column(
               children: [
-                PrimaryTextFormField(
-                  initialValue: '',
-                  label: 'Title',
-                  onChanged: (value) => context
-                      .read<CreateRealEstateBloc>()
-                      .add(UpdateRealEstateTitle(value)),
+                EnumDropdown<ListingType>(
+                  title: AppLocalizations.of(context)!.types_of_listing,
+                  items: ListingType.values,
+                  selectionMode: SelectionMode.single,
+                  getLabel: (type, context) => type.label(context),
+                  getIcon: (type) => type.icon,
+                  getTitle: (context) =>
+                      AppLocalizations.of(context)!.types_of_listing,
+                  onSelectionChanged: (selected) {
+                    print((selected as ListingType).id); // 0 ili 1
+                  },
                 ),
-                const SizedBox(height: 16),
+                EnumDropdown<ProvisionPercent>(
+                  title: AppLocalizations.of(context)!.types_of_listing,
+                  items: ProvisionPercent.values,
+                  selectionMode: SelectionMode.single,
+                  getLabel: (type, context) => type.label(context),
+                  getTitle: (context) =>
+                      AppLocalizations.of(context)!.types_of_listing,
+                  onSelectionChanged: (selected) {
+                    print((selected as ListingType).id); // 0 ili 1
+                  },
+                ),
+                EnumDropdown<RealEstateType>(
+                  title: AppLocalizations.of(context)!.select_language,
+                  items: RealEstateType.values,
+                  selectionMode: SelectionMode.single,
+                  getLabel: (type, context) => type.label(context),
+                  getIcon: (type) => type.icon,
+                  getTitle: (context) =>
+                      AppLocalizations.of(context)!.select_language,
+                  onSelectionChanged: (selected) {
+                    print((selected as ListingType).id); // 0 ili 1
+                  },
+                ),
                 PrimaryTextFormField(
                   initialValue: '',
                   label: 'Provizija',
@@ -44,6 +73,7 @@ class _DetailsTabState extends State<DetailsTab> {
                       .add(UpdateRealEstateDescription(value)),
                 ),
                 PrimaryTextFormField(
+                  textInputType: TextInputType.number,
                   initialValue: '',
                   label: 'Cijena Nekretnine(EUR)',
                   onChanged: (value) => context
@@ -51,20 +81,21 @@ class _DetailsTabState extends State<DetailsTab> {
                       .add(UpdateRealEstateDescription(value)),
                 ),
                 PrimaryTextFormField(
+                  textInputType: TextInputType.number,
                   initialValue: '',
                   label: 'Snizena Cijena(EUR)',
                   onChanged: (value) => context
                       .read<CreateRealEstateBloc>()
                       .add(UpdateRealEstateDescription(value)),
                 ),
-                const SizedBox(height: 16),
                 EnumDropdown<ListingType>(
+                  title: AppLocalizations.of(context)!.types_of_listing,
                   items: ListingType.values,
                   selectionMode: SelectionMode.single,
                   getLabel: (type, context) => type.label(context),
                   getIcon: (type) => type.icon,
                   getTitle: (context) =>
-                      AppLocalizations.of(context)!.select_language,
+                      AppLocalizations.of(context)!.types_of_listing,
                   onSelectionChanged: (selected) {
                     print((selected as ListingType).id); // 0 ili 1
                   },

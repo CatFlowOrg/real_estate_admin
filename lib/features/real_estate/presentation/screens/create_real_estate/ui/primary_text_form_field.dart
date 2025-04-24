@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:real_estate_admin/core/ui/app_text_styles.dart';
 
 class PrimaryTextFormField extends StatefulWidget {
   final String initialValue;
@@ -7,6 +8,7 @@ class PrimaryTextFormField extends StatefulWidget {
   final IconData? prefixIcon;
   final IconData? suffixIcon;
   final VoidCallback? onSuffixTap;
+  final TextInputType? textInputType;
 
   const PrimaryTextFormField({
     super.key,
@@ -15,7 +17,7 @@ class PrimaryTextFormField extends StatefulWidget {
     required this.onChanged,
     this.prefixIcon,
     this.suffixIcon,
-    this.onSuffixTap,
+    this.onSuffixTap, this.textInputType,
   });
 
   @override
@@ -40,21 +42,24 @@ class _PrimaryTextFormFieldState extends State<PrimaryTextFormField> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-
+        Text(widget.label, style: AppTextStyles.subtitleText(context),),
+        const SizedBox(height: 12,),
         Container(
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(16),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.1),
+                color: Colors.black.withValues(alpha: 0.1),
                 blurRadius: 6,
                 offset: const Offset(0, 2),
               ),
             ],
           ),
           child: TextFormField(
+            keyboardType: widget.textInputType,
             controller: _controller,
             onChanged: widget.onChanged,
             style: const TextStyle(fontSize: 16),
@@ -83,6 +88,8 @@ class _PrimaryTextFormFieldState extends State<PrimaryTextFormField> {
             ),
           ),
         ),
+        const SizedBox(height: 20,),
+
       ],
     );
   }

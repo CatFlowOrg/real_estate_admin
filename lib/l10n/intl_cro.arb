@@ -15,5 +15,15 @@
   "filter_options": "Opcije filtera ovdje",
   "real_estate_details": "Detalji o nekretnini",
   "selling": "Prodaja",
-  "renting": "Najam"
+  "renting": "Najam",
+  "noType": "Bez tipa",
+  "house": "Kuća",
+  "flat": "Stan",
+  "garage": "Garaža",
+  "land": "Zemljište",
+  "office": "Ured",
+  "apartment": "Apartman",
+  "types_of_listing": "Vrste Oglasa",
+  "provisionHidden": "Provizija sakrivena"
+
 }
